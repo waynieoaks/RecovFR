@@ -18,7 +18,7 @@ Planned features:
 - Backup of the following information: 
   - Current character model (if possible)
   - Current character uniform (From EUP, if possible)
-  - Current character weapons loadout and ammo
+  - Current character weapons, attachments and ammo
   - Current weather conditions 
   
 Known issues: 
