@@ -1,0 +1,31 @@
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\RecovFR.dll
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\RecovFR.pdb
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\LSPD First Response.dll
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\RAGENativeUI.dll
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\RagePluginHookSDK.dll
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\LSPD First Response.pdb
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\RAGENativeUI.xml
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\bin\Debug\RagePluginHookSDK.xml
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\obj\Debug\RecovFR.csproj.CopyComplete
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\obj\Debug\RecovFR.dll
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\obj\Debug\RecovFR.pdb
+E:\SteamStuff\Mod development\My Plugins\RecovFR\RecovFR\obj\Debug\RecovFR.csprojAssemblyReference.cache
+E:\repositories\LSPDFR-RecovFR\RecovFR\bin\Debug\RecovFR.dll
+E:\repositories\LSPDFR-RecovFR\RecovFR\bin\Debug\RecovFR.pdb
+E:\repositories\LSPDFR-RecovFR\RecovFR\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\repositories\LSPDFR-RecovFR\RecovFR\bin\Debug\LSPD First Response.pdb
+E:\repositories\LSPDFR-RecovFR\RecovFR\bin\Debug\RAGENativeUI.xml
+E:\repositories\LSPDFR-RecovFR\RecovFR\bin\Debug\RagePluginHookSDK.xml
+E:\repositories\LSPDFR-RecovFR\RecovFR\obj\Debug\RecovFR.csprojAssemblyReference.cache
+E:\repositories\LSPDFR-RecovFR\RecovFR\obj\Debug\RecovFR.csproj.CopyComplete
+E:\repositories\LSPDFR-RecovFR\RecovFR\obj\Debug\RecovFR.dll
+E:\repositories\LSPDFR-RecovFR\RecovFR\obj\Debug\RecovFR.pdb
+E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\bin\Debug\RecovFR.dll
+E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\bin\Debug\RecovFR.pdb
+E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\bin\Debug\RagePluginHookSDK.xml
+E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\obj\Debug\RecovFR.csprojAssemblyReference.cache
+E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\obj\Debug\RecovFR.csproj.CopyComplete
+E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\obj\Debug\RecovFR.dll
+E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\obj\Debug\RecovFR.pdb
+E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\bin\Debug\RagePluginHookSDK.dll
