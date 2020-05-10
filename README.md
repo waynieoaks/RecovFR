@@ -27,7 +27,7 @@ Installation:
 
 Version history: 
 0.2.1.0 Pre-release
-- No longer dependent on LSPDFR (can be used seperately)
+- No longer dependent on LSPDFR (can be used separately)
 - Fix game crash on restore if vehicle invalid
 - Added vehicle color and dirt levels
 - Added license plate and style
