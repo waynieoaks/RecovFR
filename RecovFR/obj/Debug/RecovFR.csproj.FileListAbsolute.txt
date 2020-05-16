@@ -29,3 +29,13 @@ E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\obj\Debug\RecovFR.csproj.CopyComplet
 E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\obj\Debug\RecovFR.dll
 E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\obj\Debug\RecovFR.pdb
 E:\repositories\LSPDFR-RecovFR-RAGE\RecovFR\bin\Debug\RagePluginHookSDK.dll
+E:\repositories\RecovFR\RecovFR\bin\Debug\RecovFR.dll
+E:\repositories\RecovFR\RecovFR\bin\Debug\RecovFR.pdb
+E:\repositories\RecovFR\RecovFR\bin\Debug\RagePluginHookSDK.dll
+E:\repositories\RecovFR\RecovFR\bin\Debug\RagePluginHookSDK.xml
+E:\repositories\RecovFR\RecovFR\obj\Debug\RecovFR.csprojAssemblyReference.cache
+E:\repositories\RecovFR\RecovFR\obj\Debug\RecovFR.csproj.CopyComplete
+E:\repositories\RecovFR\RecovFR\obj\Debug\RecovFR.dll
+E:\repositories\RecovFR\RecovFR\obj\Debug\RecovFR.pdb
+E:\repositories\RecovFR\RecovFR\bin\Debug\RAGENativeUI.dll
+E:\repositories\RecovFR\RecovFR\bin\Debug\RAGENativeUI.xml

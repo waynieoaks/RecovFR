@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using Rage.Attributes;
 
-[assembly: Plugin("RecovFR", Description = "Backup and restore some game play on ther fly...", PrefersSingleInstance = true, Author = "Waynieoaks")]
+[assembly: Plugin("RecovFR", Description = "Backup and restore some game play on the fly...", PrefersSingleInstance = true, Author = "Waynieoaks")]
 [assembly: AssemblyTitle("RecovFR")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
@@ -16,5 +16,5 @@ using Rage.Attributes;
 
 [assembly: Guid("08c55d48-5132-406c-ae77-bfdb3b7c8422")]
 
-[assembly: AssemblyVersion("0.2.1.0")]
-[assembly: AssemblyFileVersion("0.2.1.0")]
+[assembly: AssemblyVersion("0.2.2.0")]
+[assembly: AssemblyFileVersion("0.2.2.0")]
