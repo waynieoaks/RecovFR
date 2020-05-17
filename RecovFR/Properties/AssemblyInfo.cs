@@ -16,5 +16,5 @@ using Rage.Attributes;
 
 [assembly: Guid("08c55d48-5132-406c-ae77-bfdb3b7c8422")]
 
-[assembly: AssemblyVersion("0.2.2.0")]
-[assembly: AssemblyFileVersion("0.2.2.0")]
+[assembly: AssemblyVersion("0.2.3.1")]
+[assembly: AssemblyFileVersion("0.2.3.1")]

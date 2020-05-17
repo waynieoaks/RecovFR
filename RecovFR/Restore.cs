@@ -10,190 +10,165 @@ namespace RecovFR
 {
     class Restore
     {
-        //Vehicle variables
-        static String MyVeh, MyVehPlate, MyVehRadio;
-        static float MyVehLocX, MyVehLocY, MyVehLocZ, MyVehLocH, MyVehDirt, MyVehBodyHealth, MyVehEngineHealth, MyVehFuelTankHealth;
-        static Int16 MyVehPriR, MyVehPriG, MyVehPriB, MyVehSecR, MyVehSecG, MyVehSecB, MyVehRimR, MyVehRimG, MyVehRimB, MyVehLivery, MyVehTint, MyVehHealth;
-        static short MyVehPlateStyle;
-
-        // Character variables
-        static float MyLocX, MyLocY, MyLocZ, MyLocH;
-        static Int16 MyWanted, MyHealth, MyArmor;
-
-        // Environment variables
-        static TimeSpan MyTime;
-        static Int32 MyWeather;
-        static float MyPuddles, MyWindSpeed, MyWindDirection;
+        static String MyVehRadio ="";
 
         public static void DoRestore()
         {
             // Check if there is an xml file
             if (File.Exists(EntryPoint.XMLpath))
             {
-                // Read some XML
-                XDocument xdocument = XDocument.Load(EntryPoint.XMLpath);
-                IEnumerable<XElement> backups = xdocument.Elements();
-                if (xdocument == null)
-                {
-                    Game.DisplayNotification("Error: RecovFR: Backup file missing data.");
-                }
-                    foreach (var backup in backups)
-                {
-                    // Vehicle elements
-                    EntryPoint.InVehicle = Boolean.Parse(backup.Element("InVehicle").Value);
-                    MyVeh = backup.Element("MyVehicle").Value;
-                    MyVehLocX = float.Parse(backup.Element("MyVehLocX").Value);
-                    MyVehLocY = float.Parse(backup.Element("MyVehLocY").Value);
-                    MyVehLocZ = float.Parse(backup.Element("MyVehLocZ").Value);
-                    MyVehLocH = float.Parse(backup.Element("MyVehLocH").Value);
-                    MyVehPriR = Int16.Parse(backup.Element("MyVehPriR").Value);
-                    MyVehPriG = Int16.Parse(backup.Element("MyVehPriG").Value);
-                    MyVehPriB = Int16.Parse(backup.Element("MyVehPriB").Value);
-                    MyVehSecR = Int16.Parse(backup.Element("MyVehSecR").Value);
-                    MyVehSecG = Int16.Parse(backup.Element("MyVehSecG").Value);
-                    MyVehSecB = Int16.Parse(backup.Element("MyVehSecB").Value);
-                    MyVehRimR = Int16.Parse(backup.Element("MyVehRimR").Value);
-                    MyVehRimG = Int16.Parse(backup.Element("MyVehRimG").Value);
-                    MyVehRimB = Int16.Parse(backup.Element("MyVehRimB").Value);
-                    MyVehDirt = float.Parse(backup.Element("MyVehDirt").Value);
-                    MyVehLivery = Int16.Parse(backup.Element("MyVehLivery").Value);
-                    MyVehTint = Int16.Parse(backup.Element("MyVehTint").Value);
-                    MyVehPlate = backup.Element("MyVehPlate").Value;
-                    MyVehPlateStyle = short.Parse(backup.Element("MyVehPlateStyle").Value);
-                    MyVehHealth = Int16.Parse(backup.Element("MyVehHealth").Value);
-                    MyVehBodyHealth = float.Parse(backup.Element("MyVehBodyHealth").Value);
-                    MyVehEngineHealth = float.Parse(backup.Element("MyVehEngineHealth").Value);
-                    MyVehFuelTankHealth = float.Parse(backup.Element("MyVehFuelTankHealth").Value);
-                    MyVehRadio = backup.Element("MyVehRadio").Value;
-
-                    // Character Elements
-                    MyLocX = float.Parse(backup.Element("MyLocX").Value);
-                    MyLocY = float.Parse(backup.Element("MyLocY").Value);
-                    MyLocZ = float.Parse(backup.Element("MyLocZ").Value);
-                    MyLocH = float.Parse(backup.Element("MyLocH").Value);
-                    MyWanted = Int16.Parse(backup.Element("MyWanted").Value);
-                    MyHealth = Int16.Parse(backup.Element("MyHealth").Value);
-                    MyArmor = Int16.Parse(backup.Element("MyArmor").Value);
-
-                    // World Elements
-                    MyTime = TimeSpan.Parse(backup.Element("MyTime").Value);
-                    MyWeather = Int32.Parse(backup.Element("MyWeather").Value);
-                    MyPuddles = float.Parse(backup.Element("MyPuddles").Value);
-                    MyWindSpeed = float.Parse(backup.Element("MyWindSpeed").Value);
-                    MyWindDirection = float.Parse(backup.Element("MyWindDirection").Value);
-                }
-
+                // Do a bit of housework
                 if (Game.LocalPlayer.Character.IsInAnyVehicle(true))
                 {
-                    //Get out vehicle to pevent taking it with us
-                    EntryPoint.GetVehicle = Game.LocalPlayer.Character.CurrentVehicle;
-                    Game.LocalPlayer.Character.Tasks.LeaveVehicle(EntryPoint.GetVehicle, LeaveVehicleFlags.WarpOut).WaitForCompletion();
+                    //Delete vehicle to pevent taking it with us
+                    Game.LocalPlayer.Character.CurrentVehicle.Delete();
+                } else
+                {
+                    try { Game.LocalPlayer.Character.LastVehicle.Delete(); } catch { }
                 }
 
-                // Now lets run the restore
-                EntryPoint.GetVehicle = null;
+                // Initiate the XML file
+                XDocument xdocument = XDocument.Load(EntryPoint.XMLpath);
 
-                Vector3 MyVehLoc = new Vector3(MyVehLocX, MyVehLocY, MyVehLocZ);
-                if (MyVeh != "None")
+                ////// RESTORE VEHICLE ///////////////////////////////////////////////////////////////
+                IEnumerable<XElement> MyVehicleElements = xdocument.Descendants("MyVehicleElements");
+                foreach (XElement GetElements in MyVehicleElements)
                 {
-
-                    Lookups.LookupVehicles.TryGetValue(MyVeh, out String Vehresult);
-
-                    if (Vehresult == null)
+                    EntryPoint.InVehicle = (Boolean)GetElements.Element("InVehicle");
+                    Vector3 MyVehLoc = new Vector3((float)GetElements.Element("MyVehLocX"), 
+                                                    (float)GetElements.Element("MyVehLocY"), 
+                                                    (float)GetElements.Element("MyVehLocZ"));
+                    
+                    if ((string)GetElements.Element("MyVehicle") != "None")
                     {
+
+                        Lookups.LookupVehicles.TryGetValue((string)GetElements.Element("MyVehicle"), out String Vehresult);
+
+                        if (Vehresult == null)
+                        {
+                            try
+                            {
+                                EntryPoint.GetVehicle = new Vehicle((string)GetElements.Element("MyVehicle"), MyVehLoc, (float)GetElements.Element("MyVehLocH"));
+                            }
+                            catch (Exception e)
+                            {
+                                EntryPoint.InVehicle = false;  // Vehicle not restored, so forget warp to vehicle
+                                EntryPoint.Command_Notification("RecovFR: Error restoring vehicle, please send me your logs");
+                                Game.LogTrivial("RevovFR: --------------------------------------");
+                                Game.LogTrivial("RecovFR: Error restoring vehicle.");
+                                Game.LogTrivial("Expected vehicle: " + (string)GetElements.Element("MyVehicle"));
+                                Game.LogTrivial(e.ToString());
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                EntryPoint.GetVehicle = new Vehicle(Vehresult, MyVehLoc, (float)GetElements.Element("MyVehLocH"));
+                            }
+                            catch (Exception e)
+                            {
+                                EntryPoint.InVehicle = false;  // Vehicle not restored, so forget warp to vehicle
+                                EntryPoint.Command_Notification("RecovFR: Error restoring vehicle, please send me your logs");
+                                Game.LogTrivial("RevovFR: --------------------------------------");
+                                Game.LogTrivial("RecovFR: Error restoring vehicle.");
+                                Game.LogTrivial("Expected vehicle: " + (string)GetElements.Element("MyVehicle"));
+                                Game.LogTrivial(e.ToString());
+                            }
+                        }
+                    
+                        // Try and set vehicle parameters
                         try
                         {
-                            EntryPoint.GetVehicle = new Vehicle(MyVeh, MyVehLoc, MyVehLocH);
+                            EntryPoint.GetVehicle.PrimaryColor = Color.FromArgb((Int16)GetElements.Element("MyVehPriR"),
+                                                                                (Int16)GetElements.Element("MyVehPriG"),
+                                                                                (Int16)GetElements.Element("MyVehPriB"));
+                            EntryPoint.GetVehicle.SecondaryColor = Color.FromArgb((Int16)GetElements.Element("MyVehSecR"),
+                                                                                (Int16)GetElements.Element("MyVehSecG"),
+                                                                                (Int16)GetElements.Element("MyVehSecB"));
+                            EntryPoint.GetVehicle.RimColor = Color.FromArgb((Int16)GetElements.Element("MyVehRimR"),
+                                                                                (Int16)GetElements.Element("MyVehRimG"),
+                                                                                (Int16)GetElements.Element("MyVehRimB"));
+                            EntryPoint.GetVehicle.DirtLevel = (float)GetElements.Element("MyVehDirt");
+                            NativeFunction.Natives.SetVehicleLivery<int>(EntryPoint.GetVehicle, (Int16)GetElements.Element("MyVehLivery"));
+                            NativeFunction.Natives.SetVehicleWindowTint<int>(EntryPoint.GetVehicle, (Int16)GetElements.Element("MyVehTint"));
+                            EntryPoint.GetVehicle.LicensePlate = (string)GetElements.Element("MyVehPlate");
+                            NativeFunction.Natives.SetVehicleNumberPlateTextIndex<short>(EntryPoint.GetVehicle, (short)GetElements.Element("MyVehPlateStyle"));
+                            EntryPoint.GetVehicle.Health = (Int16)GetElements.Element("MyVehHealth");
+                            NativeFunction.Natives.SetVehicleBodyHealth<float>(EntryPoint.GetVehicle, (float)GetElements.Element("MyVehBodyHealth"));
+                            EntryPoint.GetVehicle.EngineHealth = (float)GetElements.Element("MyVehEngineHealth");
+                            EntryPoint.GetVehicle.FuelTankHealth = (float)GetElements.Element("MyVehFuelTankHealth");
+                            MyVehRadio = (string)GetElements.Element("MyVehRadio"); //Get radio to set later
                         }
                         catch (Exception e)
                         {
-                            EntryPoint.InVehicle = false;  // Vehicle not restored, so forget warp to vehicle
-                            MyVeh = "None";
-                            EntryPoint.Command_Notification("RecovFR: Error restoring vehicle, please send me your logs");
                             Game.LogTrivial("RevovFR: --------------------------------------");
-                            Game.LogTrivial("RecovFR: Error restoring vehicle.");
-                            Game.LogTrivial("Expected vehicle: " + MyVeh);
+                            Game.LogTrivial("RecovFR: Error restoring vehicle perameters.");
                             Game.LogTrivial(e.ToString());
-                            
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            EntryPoint.GetVehicle = new Vehicle(Vehresult, MyVehLoc, MyVehLocH);
-                        }
-                        catch (Exception e)
-                        {
-                            EntryPoint.InVehicle = false;  // Vehicle not restored, so forget warp to vehicle
-                            MyVeh = "None";
-                            EntryPoint.Command_Notification("RecovFR: Error restoring vehicle, please send me your logs");
-                            Game.LogTrivial("RevovFR: --------------------------------------");
-                            Game.LogTrivial("RecovFR: Error restoring vehicle.");
-                            Game.LogTrivial("Expected vehicle: " + MyVeh);
-                            Game.LogTrivial(e.ToString());     
                         }
                     }
                 }
 
-                // Try and set vehicle parameters
-                if (MyVeh != "None")
+                ////// RESTORE CHARACTER /////////////////////////////////////////////////////////
+                IEnumerable<XElement> MyPedElements = xdocument.Descendants("MyPedElements");
+                foreach (XElement GetElements in MyPedElements)
                 {
-                    try
-                    {
-                        EntryPoint.GetVehicle.PrimaryColor = Color.FromArgb(MyVehPriR, MyVehPriG, MyVehPriB);
-                        EntryPoint.GetVehicle.SecondaryColor = Color.FromArgb(MyVehSecR, MyVehSecG, MyVehSecB);
-                        EntryPoint.GetVehicle.RimColor = Color.FromArgb(MyVehRimR, MyVehRimG, MyVehRimB);
-                        EntryPoint.GetVehicle.DirtLevel = MyVehDirt;
-                        NativeFunction.Natives.SetVehicleLivery<int>(EntryPoint.GetVehicle, MyVehLivery);
-                        NativeFunction.Natives.SetVehicleWindowTint<int>(EntryPoint.GetVehicle, MyVehTint);
-                        EntryPoint.GetVehicle.LicensePlate = MyVehPlate;
-                        NativeFunction.Natives.SetVehicleNumberPlateTextIndex<short>(EntryPoint.GetVehicle, MyVehPlateStyle);
-                        EntryPoint.GetVehicle.Health = MyVehHealth;
-                        NativeFunction.Natives.SetVehicleBodyHealth<float>(EntryPoint.GetVehicle, MyVehBodyHealth);
-                        EntryPoint.GetVehicle.EngineHealth = MyVehEngineHealth;
-                        EntryPoint.GetVehicle.FuelTankHealth = MyVehFuelTankHealth;
-                    }
-                    catch (Exception e)
-                    {
-                        Game.LogTrivial("RevovFR: --------------------------------------");
-                        Game.LogTrivial("RecovFR: Error restoring vehicle perameters.");
-                        Game.LogTrivial(e.ToString());
-                    }
+                    Game.LocalPlayer.Model = (string)GetElements.Element("MyModel");
+                    Vector3 MyLoc = new Vector3((float)GetElements.Element("MyLocX"),
+                                                (float)GetElements.Element("MyLocY"),
+                                                (float)GetElements.Element("MyLocZ"));
+                    World.TeleportLocalPlayer(MyLoc, false); // Set to true if reports of falling through world
+                    Game.LocalPlayer.WantedLevel = (Int16)GetElements.Element("MyWanted");
+                    Game.LocalPlayer.Character.Health = (Int16)GetElements.Element("MyHealth");
+                    Game.LocalPlayer.Character.Armor = (Int16)GetElements.Element("MyArmor");
                 }
-
-                // Restore character
-                Vector3 MyLoc = new Vector3(MyLocX, MyLocY, MyLocZ);
-                World.TeleportLocalPlayer(MyLoc, false); // Set to true if reports of falling through world
-                Game.LocalPlayer.WantedLevel = MyWanted;
-                Game.LocalPlayer.Character.Health = MyHealth;
-                Game.LocalPlayer.Character.Armor = MyArmor;
 
                 if (EntryPoint.InVehicle == true)
                 {
                     Game.LocalPlayer.Character.Tasks.EnterVehicle(EntryPoint.GetVehicle, -1, EnterVehicleFlags.WarpIn).WaitForCompletion();
                     GameFiber.Sleep(2500);
-                    
+
                     if (MyVehRadio != "") { NativeFunction.Natives.SetRadioToStationName(MyVehRadio); }
                     else { NativeFunction.Natives.SetRadioToStationName("OFF"); }
                 }
 
-                // Restore world
-                World.TimeOfDay = MyTime;
-                if (Lookups.LookupWeather.TryGetValue(MyWeather, out String Weathresult))
-                     {
-                        NativeFunction.Natives.SetWeatherTypeNow<string>(Weathresult);
-                     } else
-                     {
-                         Game.DisplayNotification("Error: RecovFR: Could not recover weather");
-                         Game.LogTrivial("RecovFR: Could not detect weather: " + MyWeather.ToString());
-                     }
-                    // NativeFunction.Natives.SetWeatherTypeNow<string>(MyWeather);
-                NativeFunction.Natives.SetWindSpeed<float>(MyWindSpeed);
-                NativeFunction.Natives.SetWindDirection<float>(MyWindDirection);
-                World.WaterPuddlesIntensity = MyPuddles;
+                ////// RESTORE PROPS ////////////////////////////////////////////////////////////
+                //IEnumerable<XElement> MyPropElements = xdocument.Descendants("MyPropElements");
+                //foreach (XElement GetElements in MyPropElements)
+                //{
+                //    // MyArmor = (Int16)GetElements.Element("MyArmor");
+                //}
 
-                //Finish up
+                ////// RESTORE WEAPONS //////////////////////////////////////////////////////////
+                //IEnumerable<XElement> MyWeaponElements = xdocument.Descendants("MyWeaponElements");
+                //foreach (XElement GetElements in MyWeaponElements)
+                //{
+                //    // MyLocX = (float)GetElements.Element("MyLocX");
+                //}
+
+
+                ////// RESTORE WORLD ////////////////////////////////////////////////////////////
+                IEnumerable<XElement> MyWorldElements = xdocument.Descendants("MyWorldElements");
+                foreach (XElement GetElements in MyWorldElements)
+                {
+                    World.TimeOfDay = TimeSpan.Parse((string)GetElements.Element("MyTime"));
+                    if (Lookups.LookupWeather.TryGetValue((Int32)GetElements.Element("MyWeather"), out string Weathresult))
+                    {
+                     //     NativeFunction.Natives.ClearWeatherTypePersist("Clear");
+                          NativeFunction.Natives.SetWeatherTypeNow<string>("Clear");
+                          NativeFunction.Natives.SetWeatherTypeNow<string>(Weathresult);
+                    }
+                    else
+                    {
+                        Game.DisplayNotification("Error: RecovFR: Could not recover weather");
+                        Game.LogTrivial("RecovFR: Could not detect weather: " + (Int32)GetElements.Element("MyWeather"));
+                    }
+                    NativeFunction.Natives.SetWindSpeed<float>((float)GetElements.Element("MyWindSpeed"));
+                    NativeFunction.Natives.SetWindDirection<float>((float)GetElements.Element("MyWindDirection"));
+                    World.WaterPuddlesIntensity = (float)GetElements.Element("MyPuddles");
+                }
+             
+                ////// FINISH UP ////////////////////////////////////////////////////////////
                 EntryPoint.Command_Notification("RecovFR: Restore complete...");
                 GameFiber.Sleep(1000); // Wait 1 second
                 return;

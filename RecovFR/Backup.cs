@@ -8,11 +8,19 @@ namespace RecovFR
 {
     class Backup
     {
+
+        static String WeaponComponents = "";
+
         public static void DoBackup()
         {
-            Dictionary <string, string> XMLBuilder = new Dictionary <string, string>();
+            Dictionary <string, string> XMLVehicle = new Dictionary <string, string>();
+            Dictionary<string, string> XMLPed = new Dictionary<string, string>();
+            Dictionary<string, string> XMLProp = new Dictionary<string, string>();
+            Dictionary<string, string> XMLWeapon = new Dictionary<string, string>();
+            Dictionary<string, string> XMLWeaponComps = new Dictionary<string, string>();
+            Dictionary<string, string> XMLWorld = new Dictionary<string, string>();
             // Am I in a vehicle?
-            
+
             if (Game.LocalPlayer.Character.IsInAnyVehicle(true)) {
                 try {
                     EntryPoint.GetVehicle = Game.LocalPlayer.Character.CurrentVehicle;
@@ -34,86 +42,112 @@ namespace RecovFR
             // Get vehicle Elements
             if (EntryPoint.InVehicle == false)
             {
-                XMLBuilder.Add("InVehicle", "false");
+                XMLVehicle.Add("InVehicle", "false");
             }  else
             {
-                XMLBuilder.Add("InVehicle", "true");
+                XMLVehicle.Add("InVehicle", "true");
             }
 
             if (EntryPoint.GetVehicle == null)
             {
-                XMLBuilder.Add("MyVehicle", "None");
-                XMLBuilder.Add("MyVehLocX", "0");
-                XMLBuilder.Add("MyVehLocY", "0");
-                XMLBuilder.Add("MyVehLocZ", "0");
-                XMLBuilder.Add("MyVehLocH", "0");
-                XMLBuilder.Add("MyVehPriR", "0");
-                XMLBuilder.Add("MyVehPriG", "0");
-                XMLBuilder.Add("MyVehPriB", "0");
-                XMLBuilder.Add("MyVehSecR", "0");
-                XMLBuilder.Add("MyVehSecG", "0");
-                XMLBuilder.Add("MyVehSecB", "0");
-                XMLBuilder.Add("MyVehRimR", "0");
-                XMLBuilder.Add("MyVehRimG", "0");
-                XMLBuilder.Add("MyVehRimB", "0");
-                XMLBuilder.Add("MyVehDirt", "0");
-                XMLBuilder.Add("MyVehLivery", "-1");
-                XMLBuilder.Add("MyVehTint", "-1");
-                XMLBuilder.Add("MyVehPlate", "");
-                XMLBuilder.Add("MyVehPlateStyle", "0");
-                XMLBuilder.Add("MyVehHealth", "0");
-                XMLBuilder.Add("MyVehEngineHealth", "0");
-                XMLBuilder.Add("MyVehFuelTankHealth", "0");
-                XMLBuilder.Add("MyVehRadio", "");
+                XMLVehicle.Add("MyVehicle", "None");
+                XMLVehicle.Add("MyVehLocX", "0");
+                XMLVehicle.Add("MyVehLocY", "0");
+                XMLVehicle.Add("MyVehLocZ", "0");
+                XMLVehicle.Add("MyVehLocH", "0");
+                XMLVehicle.Add("MyVehPriR", "0");
+                XMLVehicle.Add("MyVehPriG", "0");
+                XMLVehicle.Add("MyVehPriB", "0");
+                XMLVehicle.Add("MyVehSecR", "0");
+                XMLVehicle.Add("MyVehSecG", "0");
+                XMLVehicle.Add("MyVehSecB", "0");
+                XMLVehicle.Add("MyVehRimR", "0");
+                XMLVehicle.Add("MyVehRimG", "0");
+                XMLVehicle.Add("MyVehRimB", "0");
+                XMLVehicle.Add("MyVehDirt", "0");
+                XMLVehicle.Add("MyVehLivery", "-1");
+                XMLVehicle.Add("MyVehTint", "-1");
+                XMLVehicle.Add("MyVehPlate", "");
+                XMLVehicle.Add("MyVehPlateStyle", "0");
+                XMLVehicle.Add("MyVehHealth", "0");
+                XMLVehicle.Add("MyVehBodyHealth", "0");
+                XMLVehicle.Add("MyVehEngineHealth", "0");
+                XMLVehicle.Add("MyVehFuelTankHealth", "0");
+                XMLVehicle.Add("MyVehRadio", "");
             }
             else
             {
-                XMLBuilder.Add("MyVehicle", EntryPoint.GetVehicle.Model.Name.ToString());
-                XMLBuilder.Add("MyVehLocX", EntryPoint.GetVehicle.Position.X.ToString());
-                XMLBuilder.Add("MyVehLocY", EntryPoint.GetVehicle.Position.Y.ToString());
-                XMLBuilder.Add("MyVehLocZ", EntryPoint.GetVehicle.Position.Z.ToString());
-                XMLBuilder.Add("MyVehLocH", EntryPoint.GetVehicle.Heading.ToString());
-                XMLBuilder.Add("MyVehPriR", EntryPoint.GetVehicle.PrimaryColor.R.ToString());
-                XMLBuilder.Add("MyVehPriG", EntryPoint.GetVehicle.PrimaryColor.G.ToString());
-                XMLBuilder.Add("MyVehPriB", EntryPoint.GetVehicle.PrimaryColor.B.ToString());
-                XMLBuilder.Add("MyVehSecR", EntryPoint.GetVehicle.SecondaryColor.R.ToString());
-                XMLBuilder.Add("MyVehSecG", EntryPoint.GetVehicle.SecondaryColor.G.ToString());
-                XMLBuilder.Add("MyVehSecB", EntryPoint.GetVehicle.SecondaryColor.B.ToString());
-                XMLBuilder.Add("MyVehRimR", EntryPoint.GetVehicle.RimColor.R.ToString());
-                XMLBuilder.Add("MyVehRimG", EntryPoint.GetVehicle.RimColor.G.ToString());
-                XMLBuilder.Add("MyVehRimB", EntryPoint.GetVehicle.RimColor.B.ToString());
-
-                //XMLBuilder.Add("MyVehNeonR", NativeFunction.Natives.GetVehicleNeonLightsColor<int>(EntryPoint.GetVehicle).ToString());
-                //XMLBuilder.Add("MyVehNeonG", EntryPoint.GetVehicle.RimColor.G.ToString());
-                //XMLBuilder.Add("MyVehNeonB", EntryPoint.GetVehicle.RimColor.B.ToString());
-
-                XMLBuilder.Add("MyVehDirt", EntryPoint.GetVehicle.DirtLevel.ToString());
-                XMLBuilder.Add("MyVehLivery", NativeFunction.Natives.GetVehicleLivery<int>(EntryPoint.GetVehicle).ToString());
-                XMLBuilder.Add("MyVehTint", NativeFunction.Natives.GetVehicleWindowTint<int>(EntryPoint.GetVehicle).ToString());
-                XMLBuilder.Add("MyVehPlate", EntryPoint.GetVehicle.LicensePlate);
-                XMLBuilder.Add("MyVehPlateStyle", NativeFunction.Natives.GetVehicleNumberPlateTextIndex<short>(EntryPoint.GetVehicle).ToString());
-                XMLBuilder.Add("MyVehHealth", EntryPoint.GetVehicle.Health.ToString());
-                XMLBuilder.Add("MyVehBodyHealth", NativeFunction.Natives.GetVehicleBodyHealth<float>(EntryPoint.GetVehicle).ToString());
-                XMLBuilder.Add("MyVehEngineHealth", EntryPoint.GetVehicle.EngineHealth.ToString());
-                XMLBuilder.Add("MyVehFuelTankHealth", EntryPoint.GetVehicle.FuelTankHealth.ToString());
-                XMLBuilder.Add("MyVehRadio", NativeFunction.Natives.GetPlayerRadioStationName<string>());
+                XMLVehicle.Add("MyVehicle", EntryPoint.GetVehicle.Model.Name.ToString());
+                XMLVehicle.Add("MyVehLocX", EntryPoint.GetVehicle.Position.X.ToString());
+                XMLVehicle.Add("MyVehLocY", EntryPoint.GetVehicle.Position.Y.ToString());
+                XMLVehicle.Add("MyVehLocZ", EntryPoint.GetVehicle.Position.Z.ToString());
+                XMLVehicle.Add("MyVehLocH", EntryPoint.GetVehicle.Heading.ToString());
+                XMLVehicle.Add("MyVehPriR", EntryPoint.GetVehicle.PrimaryColor.R.ToString());
+                XMLVehicle.Add("MyVehPriG", EntryPoint.GetVehicle.PrimaryColor.G.ToString());
+                XMLVehicle.Add("MyVehPriB", EntryPoint.GetVehicle.PrimaryColor.B.ToString());
+                XMLVehicle.Add("MyVehSecR", EntryPoint.GetVehicle.SecondaryColor.R.ToString());
+                XMLVehicle.Add("MyVehSecG", EntryPoint.GetVehicle.SecondaryColor.G.ToString());
+                XMLVehicle.Add("MyVehSecB", EntryPoint.GetVehicle.SecondaryColor.B.ToString());
+                XMLVehicle.Add("MyVehRimR", EntryPoint.GetVehicle.RimColor.R.ToString());
+                XMLVehicle.Add("MyVehRimG", EntryPoint.GetVehicle.RimColor.G.ToString());
+                XMLVehicle.Add("MyVehRimB", EntryPoint.GetVehicle.RimColor.B.ToString());
+                XMLVehicle.Add("MyVehDirt", EntryPoint.GetVehicle.DirtLevel.ToString());
+                XMLVehicle.Add("MyVehLivery", NativeFunction.Natives.GetVehicleLivery<int>(EntryPoint.GetVehicle).ToString());
+                XMLVehicle.Add("MyVehTint", NativeFunction.Natives.GetVehicleWindowTint<int>(EntryPoint.GetVehicle).ToString());
+                XMLVehicle.Add("MyVehPlate", EntryPoint.GetVehicle.LicensePlate);
+                XMLVehicle.Add("MyVehPlateStyle", NativeFunction.Natives.GetVehicleNumberPlateTextIndex<short>(EntryPoint.GetVehicle).ToString());
+                XMLVehicle.Add("MyVehHealth", EntryPoint.GetVehicle.Health.ToString());
+                XMLVehicle.Add("MyVehBodyHealth", NativeFunction.Natives.GetVehicleBodyHealth<float>(EntryPoint.GetVehicle).ToString());
+                XMLVehicle.Add("MyVehEngineHealth", EntryPoint.GetVehicle.EngineHealth.ToString());
+                XMLVehicle.Add("MyVehFuelTankHealth", EntryPoint.GetVehicle.FuelTankHealth.ToString());
+                XMLVehicle.Add("MyVehRadio", NativeFunction.Natives.GetPlayerRadioStationName<string>());
             }
 
             // Get character Elements
-            XMLBuilder.Add("MyLocX", Game.LocalPlayer.Character.Position.X.ToString());
-            XMLBuilder.Add("MyLocY", Game.LocalPlayer.Character.Position.Y.ToString());
-            XMLBuilder.Add("MyLocZ", Game.LocalPlayer.Character.Position.Z.ToString());
-            XMLBuilder.Add("MyLocH", Game.LocalPlayer.Character.Heading.ToString());
-            XMLBuilder.Add("MyWanted", Game.LocalPlayer.WantedLevel.ToString());
-            XMLBuilder.Add("MyHealth", Game.LocalPlayer.Character.Health.ToString());
-            XMLBuilder.Add("MyArmor", Game.LocalPlayer.Character.Armor.ToString());
-            
+            XMLPed.Add("MyModel", Game.LocalPlayer.Character.Model.Name);
+            XMLPed.Add("MyLocX", Game.LocalPlayer.Character.Position.X.ToString());
+            XMLPed.Add("MyLocY", Game.LocalPlayer.Character.Position.Y.ToString());
+            XMLPed.Add("MyLocZ", Game.LocalPlayer.Character.Position.Z.ToString());
+            XMLPed.Add("MyLocH", Game.LocalPlayer.Character.Heading.ToString());
+            XMLPed.Add("MyWanted", Game.LocalPlayer.WantedLevel.ToString());
+            XMLPed.Add("MyHealth", Game.LocalPlayer.Character.Health.ToString());
+            XMLPed.Add("MyArmor", Game.LocalPlayer.Character.Armor.ToString());
+            XMLPed.Add("MyInvincible", NativeFunction.Natives.GetPlayerInvincible<bool>(Game.LocalPlayer).ToString());
+
+            // Get Weapon Elements
+            foreach (KeyValuePair<long, string> weapon in Lookups.LookupWeapons)
+            {
+                WeaponComponents = "";
+                bool hasPedGotWeapon = NativeFunction.Natives.HasPedGotWeapon<bool>(Game.LocalPlayer.Character, weapon.Key, false);
+                if (hasPedGotWeapon == true)
+                {
+                    XMLWeapon.Add(weapon.Value.ToString(), NativeFunction.Natives.GetAmmoInPedWeapon<int>(Game.LocalPlayer.Character, weapon.Key).ToString());
+                    
+                    foreach (KeyValuePair<string, string> weaponComponent in Lookups.LookupWeaponComponents)
+                    {
+                        Int32 componentHash = NativeFunction.Natives.GetHashKey<int>(weaponComponent.Key);
+                        Boolean hasWeaponGotComponent = NativeFunction.Natives.HasPedGotWeaponComponent<bool>(Game.LocalPlayer.Character, weapon.Key, componentHash);
+                        if (hasWeaponGotComponent)
+                        {
+                        WeaponComponents = WeaponComponents + weaponComponent.Key.ToString() + ";";
+                            // Game.DisplayNotification("Component: " + weaponComponent.ToString());
+                        }
+                    }
+                   
+                    if (WeaponComponents != "")
+                    {
+                        WeaponComponents = WeaponComponents.TrimEnd(';');
+                        XMLWeaponComps.Add(weapon.Value.ToString(), WeaponComponents);
+                    }
+                }
+            }
+
             // Get World Elements
-            XMLBuilder.Add("MyTime", World.TimeOfDay.ToString());
-            XMLBuilder.Add("MyWeather", NativeFunction.Natives.GetPrevWeatherTypeHashName<int>().ToString());
-            XMLBuilder.Add("MyPuddles", World.WaterPuddlesIntensity.ToString());
-            XMLBuilder.Add("MyWindSpeed", NativeFunction.Natives.GetWindSpeed<float>().ToString());
-            XMLBuilder.Add("MyWindDirection", NativeFunction.Natives.GetWindDirection<float>().ToString());
+            XMLWorld.Add("MyTime", World.TimeOfDay.ToString());
+            XMLWorld.Add("MyWeather", NativeFunction.Natives.GetPrevWeatherTypeHashName<int>().ToString());
+            XMLWorld.Add("MyPuddles", World.WaterPuddlesIntensity.ToString());
+            XMLWorld.Add("MyWindSpeed", NativeFunction.Natives.GetWindSpeed<float>().ToString());
+            XMLWorld.Add("MyWindDirection", NativeFunction.Natives.GetWindDirection<float>().ToString());
 
             // Now Write backup to XML file for later use
             XmlWriterSettings xmlWriterSettings = new XmlWriterSettings()
@@ -131,12 +165,64 @@ namespace RecovFR
                 xmlWriter.WriteAttributeString("LastRun", DateTime.Now.ToString("F"));
 
                 // Vehicle elements
-                foreach (KeyValuePair<string, string> XMLValue in XMLBuilder)
+                xmlWriter.WriteStartElement("MyVehicleElements");
+                foreach (KeyValuePair<string, string> XMLValue in XMLVehicle)
                 {
                     xmlWriter.WriteStartElement(XMLValue.Key);
                     xmlWriter.WriteString(XMLValue.Value);
                     xmlWriter.WriteEndElement();
                 }
+                xmlWriter.WriteEndElement();
+
+                // Ped elements
+                xmlWriter.WriteStartElement("MyPedElements");
+                foreach (KeyValuePair<string, string> XMLValue in XMLPed)
+                {
+                    xmlWriter.WriteStartElement(XMLValue.Key);
+                    xmlWriter.WriteString(XMLValue.Value);
+                    xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
+
+                // Prop elements
+                xmlWriter.WriteStartElement("MyPropElements");
+                foreach (KeyValuePair<string, string> XMLValue in XMLProp)
+                {
+                    xmlWriter.WriteStartElement(XMLValue.Key);
+                    xmlWriter.WriteString(XMLValue.Value);
+                    xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
+                
+                // Weapon elements
+                xmlWriter.WriteStartElement("MyWeaponElements");
+                foreach (KeyValuePair<string, string> XMLValue in XMLWeapon)
+                {
+                    xmlWriter.WriteStartElement(XMLValue.Key);
+                    xmlWriter.WriteString(XMLValue.Value);
+                    xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
+
+                // Weapon Components elements
+                xmlWriter.WriteStartElement("MyWeaponComponents");
+                foreach (KeyValuePair<string, string> XMLValue in XMLWeaponComps)
+                {
+                    xmlWriter.WriteStartElement(XMLValue.Key);
+                    xmlWriter.WriteString(XMLValue.Value);
+                    xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
+
+                // World elements
+                xmlWriter.WriteStartElement("MyWorldElements");
+                foreach (KeyValuePair<string, string> XMLValue in XMLWorld)
+                {
+                    xmlWriter.WriteStartElement(XMLValue.Key);
+                    xmlWriter.WriteString(XMLValue.Value);
+                    xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
 
                 // End the XML
                 xmlWriter.WriteEndElement();
