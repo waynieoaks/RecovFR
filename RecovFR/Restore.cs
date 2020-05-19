@@ -154,7 +154,6 @@ namespace RecovFR
                     World.TimeOfDay = TimeSpan.Parse((string)GetElements.Element("MyTime"));
                     if (Lookups.LookupWeather.TryGetValue((Int32)GetElements.Element("MyWeather"), out string Weathresult))
                     {
-                     //     NativeFunction.Natives.ClearWeatherTypePersist("Clear");
                           NativeFunction.Natives.SetWeatherTypeNow<string>("Clear");
                           NativeFunction.Natives.SetWeatherTypeNow<string>(Weathresult);
                     }

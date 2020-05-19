@@ -129,8 +129,7 @@ namespace RecovFR
                         Boolean hasWeaponGotComponent = NativeFunction.Natives.HasPedGotWeaponComponent<bool>(Game.LocalPlayer.Character, weapon.Key, componentHash);
                         if (hasWeaponGotComponent)
                         {
-                        WeaponComponents = WeaponComponents + weaponComponent.Key.ToString() + ";";
-                            // Game.DisplayNotification("Component: " + weaponComponent.ToString());
+                            WeaponComponents = WeaponComponents + weaponComponent.Key.ToString() + ";";
                         }
                     }
                    
@@ -139,6 +138,7 @@ namespace RecovFR
                         WeaponComponents = WeaponComponents.TrimEnd(';');
                         XMLWeaponComps.Add(weapon.Value.ToString(), WeaponComponents);
                     }
+                    //GameFiber.Sleep(1000);
                 }
             }
 
