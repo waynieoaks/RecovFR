@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rage;
 
 namespace RecovFR
 {
@@ -310,6 +309,8 @@ namespace RecovFR
 
         public static Dictionary<string, string> LookupVehicles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
+            // https://www.se7ensins.com/forums/threads/ref-gta-v-vehicle-hashes-list-2.1615439 //
+            // https://www.se7ensins.com/forums/threads/gta-v-vehicle-hashes-list.988584 //
             {"0xB779A091","ADDER"},
             {"0x4C80EB0E","AIRBUS"},
             {"0x5D0AAC8F","AIRTUG"},
