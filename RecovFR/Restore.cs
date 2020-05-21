@@ -105,6 +105,13 @@ namespace RecovFR
                                     EntryPoint.GetVehicle.EngineHealth = (float)GetElements.Element("MyVehEngineHealth");
                                     EntryPoint.GetVehicle.FuelTankHealth = (float)GetElements.Element("MyVehFuelTankHealth");
                                     MyVehRadio = (string)GetElements.Element("MyVehRadio"); //Get radio to set later
+                                    if (EntryPoint.VehicleGodMode == true)
+                                    {
+                                        EntryPoint.GetVehicle.IsInvincible = true;
+                                    } else
+                                    {
+                                        EntryPoint.GetVehicle.IsInvincible = false;
+                                    }
                                 }
                                 catch (Exception e)
                                 {
@@ -130,9 +137,12 @@ namespace RecovFR
                             Game.LocalPlayer.WantedLevel = (Int16)GetElements.Element("MyWanted");
                             Game.LocalPlayer.Character.Health = (Int16)GetElements.Element("MyHealth");
                             Game.LocalPlayer.Character.Armor = (Int16)GetElements.Element("MyArmor");
-                            if ((Boolean)GetElements.Element("MyInvincible") == true)
+                            if (((Boolean)GetElements.Element("MyInvincible") == true) || (EntryPoint.PlayerGodMode == true))
                             {
                                 NativeFunction.Natives.SetPlayerInvincible(Game.LocalPlayer, true);
+                            } else
+                            {
+                                NativeFunction.Natives.SetPlayerInvincible(Game.LocalPlayer, false);
                             }
                         }
 
@@ -180,19 +190,35 @@ namespace RecovFR
                             //Game.LocalPlayer.Character.Inventory.GiveNewWeapon(GetElements.Name.ToString(), short.Parse(GetElements.Value), false);
                             Game.LocalPlayer.Character.Inventory.AddComponentToWeapon(GetElements.Name.ToString(), GetElements.Value);
                         }
+                        // restore weapon in hand
+                        // Game.LocalPlayer.Character.Inventory.EquippedWeapon = 
                     }
                     catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring weapons or components"); }
 
                     try
                     { ////// RESTORE WORLD ////////////////////////////////////////////////////////////
+                        NativeFunction.Natives.ClearWeatherTypePersist();
                         IEnumerable<XElement> MyWorldElements = xdocument.Descendants("MyWorldElements");
                         foreach (XElement GetElements in MyWorldElements)
                         {
                             World.TimeOfDay = TimeSpan.Parse((string)GetElements.Element("MyTime"));
-                            if (Lookups.LookupWeather.TryGetValue((Int32)GetElements.Element("MyWeather"), out string Weathresult))
+                            if (EntryPoint.FreezeTime == true)
+                            {
+                                NativeFunction.Natives.PauseClock(true);
+                            } else
+                            {
+                                NativeFunction.Natives.PauseClock(false);
+                            }
+                                if (Lookups.LookupWeather.TryGetValue((Int32)GetElements.Element("MyWeather"), out string Weathresult))
                             {
                                 NativeFunction.Natives.SetWeatherTypeNow<string>("Clear");
-                                NativeFunction.Natives.SetWeatherTypeNow<string>(Weathresult);
+                                if (EntryPoint.FreezeWeather == true)
+                                {
+                                    NativeFunction.Natives.SetWeatherTypeNowPersist<string>(Weathresult);
+                                } else
+                                {
+                                    NativeFunction.Natives.SetWeatherTypeNow<string>(Weathresult);
+                                }
                             }
                             else
                             {
@@ -202,6 +228,13 @@ namespace RecovFR
                             NativeFunction.Natives.SetWindSpeed<float>((float)GetElements.Element("MyWindSpeed"));
                             NativeFunction.Natives.SetWindDirection<float>((float)GetElements.Element("MyWindDirection"));
                             World.WaterPuddlesIntensity = (float)GetElements.Element("MyPuddles");
+                            if (EntryPoint.SnowOnGround == true)
+                            {
+                                MemoryClasses.MemoryAccess.SetSnowRendered(true);
+                            } else
+                            {
+                                MemoryClasses.MemoryAccess.SetSnowRendered(false);
+                            }
                         }
                     }
                     catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring world"); }

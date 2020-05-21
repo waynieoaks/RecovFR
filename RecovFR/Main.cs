@@ -21,6 +21,7 @@ namespace RecovFR
         public static Boolean PlayerGodMode { get; set; }
         public static Boolean VehicleGodMode { get; set; }
         public static Boolean FreezeWeather { get; set; }
+        public static Boolean SnowOnGround { get; set; }
         public static Boolean FreezeTime { get; set; }
         public static Vehicle GetVehicle { get; set; }
         public static Boolean InVehicle { get; set; }
@@ -35,54 +36,63 @@ namespace RecovFR
 
             Game.LogTrivial("RecovFR " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " has been initialised.");
 
-                Game.DisplayNotification("RecovFR " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " has loaded.");
-
-            try
-            { // Apply startup options
-                if (PlayerGodMode == true)
+            // Key binding fiber
+            GameFiber.StartNew(delegate 
+            {
+                while (true)
                 {
-                    NativeFunction.Natives.SetPlayerInvincible(Game.LocalPlayer, true);
+                    GameFiber.Yield();
+                    if (Game.IsKeyDown(BackupKey) &&
+                        (Game.IsKeyDownRightNow(BackupModifierKey) ||
+                            BackupModifierKey == Keys.None))
+                    {
+                        Backup.DoBackup();
+                        GameFiber.Sleep(1000);
+                    }
+                    if (Game.IsKeyDown(RestoreKey) &&
+                        (Game.IsKeyDownRightNow(RestoreModifierKey) ||
+                            RestoreModifierKey == Keys.None))
+                    {
+                        Restore.DoRestore();
+                        GameFiber.Sleep(1000);
+                    }                  
                 }
-            } catch (Exception e) { EntryPoint.ErrorLogger(e, "Startup", "Error applying startup options"); }
+            });
 
-            GameFiber.StartNew(delegate ()
+            // Auto backup fiber
+            if (AutoBackups == true && AutoBackupInt >= 1 && AutoBackupInt <= 60)
+            {
+                Int32 time = ((AutoBackupInt * 1000) * 60);
+                string timeString = time.ToString();
+                GameFiber.StartNew(delegate 
                 {
                     while (true)
                     {
-                        GameFiber.Yield();
-                        if (Game.IsKeyDown(BackupKey) &&
-                            (Game.IsKeyDownRightNow(BackupModifierKey) ||
-                             BackupModifierKey == Keys.None))
-                        {
-                            Backup.DoBackup();
-                            GameFiber.Sleep(1000);
-                        }
-                        if (Game.IsKeyDown(RestoreKey) &&
-                            (Game.IsKeyDownRightNow(RestoreModifierKey) ||
-                             RestoreModifierKey == Keys.None))
-                        {
-                            Restore.DoRestore();
-                            GameFiber.Sleep(1000);
-                        }                  
+                        GameFiber.Yield(); // May need to remove this
+                        Game.LogTrivial("RecovFR: AutoBackup initiated");
+                        Backup.DoBackup();
+                        GameFiber.Sleep(time);
                     }
                 });
+            }
 
-                // Auto backup fiber
-                if (AutoBackups == true && AutoBackupInt >= 1 && AutoBackupInt <= 60)
-                {
-                    Int32 time = ((AutoBackupInt * 1000) * 60);
-                    string timeString = time.ToString();
-                    GameFiber.StartNew(delegate
-                    {
-                        while (true)
-                        {
-                            GameFiber.Yield(); // May need to remove this
-                            Game.LogTrivial("RecovFR: AutoBackup initiated");
-                            Backup.DoBackup();
-                            GameFiber.Sleep(time);
-                        }
-                    });
-                }
+            //    // Try to apply startup options
+            //GameFiber.StartNew(delegate 
+            //{
+            //    while (Game.IsLoading)
+            //    {
+            //        GameFiber.Sleep(2000); // Wait 2 seconds
+            //    } 
+            //        try
+            //        { // Apply startup options
+            //            GameFiber.Sleep(2000); // Wait 1 second
+            //            if (PlayerGodMode == true) { NativeFunction.Natives.SetPlayerInvincible(Game.LocalPlayer, true); }
+            //            if (FreezeWeather == true) { NativeFunction.Natives.SetWeatherTypeNowPersist(SetWeather); }
+            //            if (SnowOnGround == true) { MemoryClasses.MemoryAccess.SetSnowRendered(true); }
+            //            return;
+            //        } 
+            //        catch (Exception e) { EntryPoint.ErrorLogger(e, "Startup", "Error applying startup options"); }
+            //}); 
         }
 
         private static void LoadValuesFromIniFile()
@@ -100,10 +110,11 @@ namespace RecovFR
                 AutoBackups = ini.ReadBoolean("Features", "AutoBackups", false);
                 AutoBackupInt = ini.ReadByte("Features", "AutoBackupInt", 60);
                 ShowNotifications = ini.ReadBoolean("Features", "ShowNotifications", false);
-                PlayerGodMode = ini.ReadBoolean("Startup", "PlayerGodMode", false);
-                VehicleGodMode = ini.ReadBoolean("Startup", "VehicleGodMode", false);
-                FreezeWeather = ini.ReadBoolean("Startup", "FreezeWeather", false);
-                FreezeTime = ini.ReadBoolean("Startup", "FreezeTime", false);
+                PlayerGodMode = ini.ReadBoolean("RestoreOptions", "PlayerGodMode", false);
+                VehicleGodMode = ini.ReadBoolean("RestoreOptions", "VehicleGodMode", false);
+                FreezeWeather = ini.ReadBoolean("RestoreOptions", "FreezeWeather", false);
+                SnowOnGround = ini.ReadBoolean("RestoreOptions", "SnowOnGround", false);
+                FreezeTime = ini.ReadBoolean("RestoreOptions", "FreezeTime", false);
                 Game.LogTrivial("RecovFR: INI file read successfully.");
             }
             catch (Exception e)
@@ -118,6 +129,7 @@ namespace RecovFR
                 PlayerGodMode = false;
                 VehicleGodMode = false;
                 FreezeWeather = false;
+                SnowOnGround = false;
                 FreezeTime = false;
                 Game.DisplayNotification("~r~~h~RecovFR:~s~ Error reading INI file, setting default values.");
                 Game.LogTrivial("RevovFR: --------------------------------------");
