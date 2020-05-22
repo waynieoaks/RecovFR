@@ -4,34 +4,51 @@ Backing up and restoring game play on the fly... [Work in Progress]
 Installation: 
 1. Copy the plugins folder into your "Grand Theft Auto V" install folder 
 2. Edit the keybindings in the .ini to meet your requirements
-** Do not need to replace .ini file if updating from previous version **
+** Note: previous backups will not work with this version **
 
 Current features:
 - Backup stored in xml file, so even after full game crash or exit, backup can be restored
 - Backup the following states at the press of a button or automatically (if enabled): 
+  - Current character model
   - Current character location
+  - Current weapons, components and ammo
+  - Wanted level
+  - Health and armor
+  - Player invincibility* 
   - Current vehicle (if in vehicle)
   - Last vehicle and location (if on foot)
   - Vehicle colors, livery and dirt level
   - License Plate and style
   - Vehicle health
-  - Wanted level
-  - Health and armor
+  - Vehicle invincibility*
   - Current time in game
   - Current weather conditions
+  - Freeze time and weather on restore*
+  - Set snow on terrain on restore*
 - Restore last backup at press of button
+
+*Restore options set in game
 
 Planned features (If I am clever enough to work it out): 
 - Backup / restore the following information: 
-  - Current character model
   - If character is wet or dry
   - Current uniform and accessories
-  - Current weapons, components and ammo
   - Vehicle neon light configurations
-- Restructure XML for better reading
-- Ability to turn on/off features in .ini file
+  - Ability to turn on/off features in .ini file
+  - Simple Menu to control options in game
 
 Version history: 
+0.3.1.0 Pre-Release (The Tooled-Up-Date)
+- Added weapons, ammo and components
+- Added character model
+- Enable player and vehicle invincibility on restore (from ini file)
+- Set time and weather frozen on restore (from ini file)
+- Enable snow on ground on restore (from ini file)
+- INI and XML files restructured
+- Better error handling
+- Fixed plugin crash if restoring backup before entering a vehicle
+- Fixed weather not changing from neutral to snow
+
 0.2.2.0 Pre-release ("Whatever the weather update")
 - Backup code optimisation
 - Fixed DLC vehicle restore failure
