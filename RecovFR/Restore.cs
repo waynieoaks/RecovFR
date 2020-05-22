@@ -107,10 +107,19 @@ namespace RecovFR
                                     MyVehRadio = (string)GetElements.Element("MyVehRadio"); //Get radio to set later
                                     if (EntryPoint.VehicleGodMode == true)
                                     {
-                                        EntryPoint.GetVehicle.IsInvincible = true;
+                                        NativeFunction.Natives.SET_VEHICLE_FIXED(EntryPoint.GetVehicle);
+                                        NativeFunction.Natives.SET_ENTITY_INVINCIBLE(EntryPoint.GetVehicle, true);
+                                        NativeFunction.Natives.SET_VEHICLE_STRONG(EntryPoint.GetVehicle, true);
+                                        NativeFunction.Natives.SET_VEHICLE_CAN_BREAK(EntryPoint.GetVehicle, false);
+                                        NativeFunction.Natives.SET_VEHICLE_CAN_BE_VISIBLY_DAMAGED(EntryPoint.GetVehicle, false);
+                                        NativeFunction.Natives.SET_VEHICLE_TYRES_CAN_BURST(EntryPoint.GetVehicle, false);
+                                        NativeFunction.Natives.SET_VEHICLE_WHEELS_CAN_BREAK(EntryPoint.GetVehicle, false);
+                                        NativeFunction.Natives.SET_ENTITY_CAN_BE_DAMAGED(EntryPoint.GetVehicle, false);
+                                        NativeFunction.Natives.SET_ENTITY_ONLY_DAMAGED_BY_PLAYER(EntryPoint.GetVehicle, false);
+                                        NativeFunction.Natives.SET_ENTITY_PROOFS(EntryPoint.GetVehicle, 1, 1, 1, 1, 1, 1, 1, 1);
                                     } else
                                     {
-                                        EntryPoint.GetVehicle.IsInvincible = false;
+                                     //   EntryPoint.GetVehicle.IsInvincible = false;
                                     }
                                 }
                                 catch (Exception e)

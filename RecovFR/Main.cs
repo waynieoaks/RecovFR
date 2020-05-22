@@ -103,38 +103,103 @@ namespace RecovFR
 
             try
             {
-                BackupKey = ini.ReadEnum<Keys>("Keybindings", "BackupKey", Keys.F12);
-                BackupModifierKey = ini.ReadEnum<Keys>("Keybindings", "BackupModifierKey", Keys.ControlKey);
-                RestoreKey = ini.ReadEnum<Keys>("Keybindings", "RestoreKey", Keys.F12);
-                RestoreModifierKey = ini.ReadEnum<Keys>("Keybindings", "RestoreModifierKey", Keys.Menu);
-                AutoBackups = ini.ReadBoolean("Features", "AutoBackups", false);
-                AutoBackupInt = ini.ReadByte("Features", "AutoBackupInt", 60);
-                ShowNotifications = ini.ReadBoolean("Features", "ShowNotifications", false);
-                PlayerGodMode = ini.ReadBoolean("RestoreOptions", "PlayerGodMode", false);
-                VehicleGodMode = ini.ReadBoolean("RestoreOptions", "VehicleGodMode", false);
-                FreezeWeather = ini.ReadBoolean("RestoreOptions", "FreezeWeather", false);
-                SnowOnGround = ini.ReadBoolean("RestoreOptions", "SnowOnGround", false);
-                FreezeTime = ini.ReadBoolean("RestoreOptions", "FreezeTime", false);
-                Game.LogTrivial("RecovFR: INI file read successfully.");
+                if (ini.DoesKeyExist("Keybindings", "BackupKey"))
+                { 
+                    BackupKey = ini.ReadEnum<Keys>("Keybindings", "BackupKey", Keys.F12);
+                } else { 
+                    ini.Write("Keybindings", "BackupKey", "F12"); 
+                }
+                if (ini.DoesKeyExist("Keybindings", "BackupModifierKey"))
+                { 
+                    BackupModifierKey = ini.ReadEnum<Keys>("Keybindings", "BackupModifierKey", Keys.ControlKey);
+                } else { 
+                    ini.Write("Keybindings", "BackupModifierKey", "ControlKey"); 
+                }
+                if (ini.DoesKeyExist("Keybindings", "RestoreKey"))
+                {
+                    RestoreKey = ini.ReadEnum<Keys>("Keybindings", "RestoreKey", Keys.F12);
+                }
+                else
+                {
+                    ini.Write("Keybindings", "RestoreKey", "F12");
+                }
+                if (ini.DoesKeyExist("Keybindings", "RestoreModifierKey"))
+                {
+                    RestoreModifierKey = ini.ReadEnum<Keys>("Keybindings", "RestoreModifierKey", Keys.Menu);
+                }
+                else
+                {
+                    ini.Write("Keybindings", "RestoreModifierKey", "ControlKey");
+                }
+                if (ini.DoesKeyExist("Features", "AutoBackups"))
+                {
+                    AutoBackups = ini.ReadBoolean("Features", "AutoBackups", false);
+                }
+                else
+                {
+                    ini.Write("Features", "AutoBackups", "false");
+                }
+                if (ini.DoesKeyExist("Features", "AutoBackupInt"))
+                {
+                    AutoBackupInt = ini.ReadByte("Features", "AutoBackupInt", 60);
+                }
+                else
+                {
+                    ini.Write("Features", "AutoBackupInt", "60");
+                }
+                if (ini.DoesKeyExist("Features", "ShowNotifications"))
+                {
+                    ShowNotifications = ini.ReadBoolean("Features", "ShowNotifications", false);
+                }
+                else
+                {
+                    ini.Write("Features", "ShowNotifications", "false");
+                }
+                if (ini.DoesKeyExist("RestoreOptions", "PlayerGodMode"))
+                {
+                    PlayerGodMode = ini.ReadBoolean("RestoreOptions", "PlayerGodMode", false);
+                }
+                else
+                {
+                    ini.Write("RestoreOptions", "PlayerGodMode", "False");
+                }
+                if (ini.DoesKeyExist("RestoreOptions", "VehicleGodMode"))
+                {
+                    VehicleGodMode = ini.ReadBoolean("RestoreOptions", "VehicleGodMode", false);
+                }
+                else
+                {
+                    ini.Write("RestoreOptions", "VehicleGodMode", "false");
+                }
+                if (ini.DoesKeyExist("RestoreOptions", "FreezeWeather"))
+                {
+                    FreezeWeather = ini.ReadBoolean("RestoreOptions", "FreezeWeather", false);
+                }
+                else
+                {
+                    ini.Write("RestoreOptions", "FreezeWeather", "false");
+                }
+                if (ini.DoesKeyExist("RestoreOptions", "SnowOnGround"))
+                {
+                    SnowOnGround = ini.ReadBoolean("RestoreOptions", "SnowOnGround", false);
+                }
+                else
+                {
+                    ini.Write("RestoreOptions", "SnowOnGround", "false");
+                }
+                if (ini.DoesKeyExist("RestoreOptions", "FreezeTime"))
+                {
+                    FreezeTime = ini.ReadBoolean("RestoreOptions", "FreezeTime", false);
+                }
+                else
+                {
+                    ini.Write("RestoreOptions", "FreezeTime", "false");
+                }
+                Game.LogTrivial("RecovFR: Settings initialisation complete.");
             }
             catch (Exception e)
             {
-                BackupKey = Keys.F5;
-                BackupModifierKey = Keys.ControlKey;
-                RestoreKey = Keys.F5;
-                RestoreModifierKey = Keys.Menu;
-                AutoBackups = false;
-                AutoBackupInt = 60;
-                ShowNotifications = false;
-                PlayerGodMode = false;
-                VehicleGodMode = false;
-                FreezeWeather = false;
-                SnowOnGround = false;
-                FreezeTime = false;
-                Game.DisplayNotification("~r~~h~RecovFR:~s~ Error reading INI file, setting default values.");
-                Game.LogTrivial("RevovFR: --------------------------------------");
-                Game.LogTrivial("RecovFR: Error reading ini file");
-                Game.LogTrivial(e.ToString());
+                ErrorLogger(e, "Initialisation", "Unable to read INI file.");
             }
 
         }
@@ -153,7 +218,7 @@ namespace RecovFR
             Game.LogTrivial("RecovFR: Error during " + ErrMod);
             Game.LogTrivial("Decription: " + ErrDesc);
             Game.LogTrivial(Err.ToString());
-            Game.DisplayNotification("~r~~h~RecovFR:~s Error during " + ErrMod + ". Please send logs.");
+            Game.DisplayNotification("~r~~h~RecovFR:~h~~s~ Error during " + ErrMod + ". Please send logs.");
         }
     }
 }
