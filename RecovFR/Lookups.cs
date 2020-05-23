@@ -33,6 +33,7 @@ namespace RecovFR
             {2508868239,  "WEAPON_BAT"},
             {1141786504,  "WEAPON_GOLFCLUB"},
             {2227010557,  "WEAPON_CROWBAR"},
+            {2343591895, "WEAPON_FLASHLIGHT" },
             {453432689,  "WEAPON_PISTOL"},
             {1593441988,  "WEAPON_COMBATPISTOL"},
             {584646201,  "WEAPON_APPISTOL"},

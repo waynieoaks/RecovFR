@@ -59,11 +59,7 @@ namespace RecovFR
                                     catch (Exception e)
                                     {
                                         EntryPoint.InVehicle = false;  // Vehicle not restored, so forget warp to vehicle
-                                        EntryPoint.Command_Notification("RecovFR: Error restoring vehicle, please send me your logs");
-                                        Game.LogTrivial("RevovFR: --------------------------------------");
-                                        Game.LogTrivial("RecovFR: Error restoring vehicle.");
-                                        Game.LogTrivial("Expected vehicle: " + (string)GetElements.Element("MyVehicle"));
-                                        Game.LogTrivial(e.ToString());
+                                        EntryPoint.ErrorLogger(e, "Restore", "Error restoring vehicle");
                                     }
                                 }
                                 else
@@ -75,11 +71,7 @@ namespace RecovFR
                                     catch (Exception e)
                                     {
                                         EntryPoint.InVehicle = false;  // Vehicle not restored, so forget warp to vehicle
-                                        EntryPoint.Command_Notification("RecovFR: Error restoring vehicle, please send me your logs");
-                                        Game.LogTrivial("RevovFR: --------------------------------------");
-                                        Game.LogTrivial("RecovFR: Error restoring vehicle.");
-                                        Game.LogTrivial("Expected vehicle: " + (string)GetElements.Element("MyVehicle"));
-                                        Game.LogTrivial(e.ToString());
+                                        EntryPoint.ErrorLogger(e, "Restore", "Error restoring vehicle");
                                     }
                                 }
 
@@ -124,9 +116,7 @@ namespace RecovFR
                                 }
                                 catch (Exception e)
                                 {
-                                    Game.LogTrivial("RevovFR: --------------------------------------");
-                                    Game.LogTrivial("RecovFR: Error restoring vehicle perameters.");
-                                    Game.LogTrivial(e.ToString());
+                                    EntryPoint.ErrorLogger(e, "Restore", "Error restoring vehicle parameters");
                                 }
                             }
                         }
@@ -138,7 +128,7 @@ namespace RecovFR
                         IEnumerable<XElement> MyPedElements = xdocument.Descendants("MyPedElements");
                         foreach (XElement GetElements in MyPedElements)
                         {
-                            Game.LocalPlayer.Model = (string)GetElements.Element("MyModel");
+                         //   Game.LocalPlayer.Model = (string)GetElements.Element("MyModel");
                             EntryPoint.MyLoc = new Vector3((float)GetElements.Element("MyLocX"),
                                                         (float)GetElements.Element("MyLocY"),
                                                         (float)GetElements.Element("MyLocZ"));
@@ -256,7 +246,7 @@ namespace RecovFR
                 else
                 {
                     // There is no XML file
-                    Game.DisplayNotification("~r~~h~RecovFR:~s~ Error: Backup file not found.");
+                    Game.DisplayNotification("~r~~h~RecovFR:~s~~h~ Error: Backup file not found.");
                     Game.LogTrivial("RevovFR: --------------------------------------");
                     Game.LogTrivial("RecovFR: Error during Restore.");
                     Game.LogTrivial("Decription: XML file could not be found." );

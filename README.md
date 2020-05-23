@@ -9,7 +9,6 @@ Installation:
 Current features:
 - Backup stored in xml file, so even after full game crash or exit, backup can be restored
 - Backup the following states at the press of a button or automatically (if enabled): 
-  - Current character model
   - Current character location
   - Current weapons, components and ammo
   - Wanted level
@@ -31,6 +30,7 @@ Current features:
 
 Planned features (If I am clever enough to work it out): 
 - Backup / restore the following information: 
+  - Current character model
   - If character is wet or dry
   - Current uniform and accessories
   - Vehicle neon light configurations
@@ -38,6 +38,10 @@ Planned features (If I am clever enough to work it out):
   - Simple Menu to control options in game
 
 Version history: 
+0.3.1.1 Pre-Release (The I Messed-Up-Date)
+- Removed character model from restore (critical bug)
+- Fixed flashlight missing from restore
+
 0.3.1.0 Pre-Release (The Tooled-Up-Date)
 - Added weapons, ammo and components
 - Added character model
