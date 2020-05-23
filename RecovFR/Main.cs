@@ -34,7 +34,7 @@ namespace RecovFR
             Game.LogTrivial("Loading RecovFR settings...");
             LoadValuesFromIniFile();
 
-            Game.LogTrivial("RecovFR " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " has been initialised.");
+            Game.LogTrivial(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " has been initialised.");
 
             // Key binding fiber
             GameFiber.StartNew(delegate 
@@ -69,7 +69,7 @@ namespace RecovFR
                     while (true)
                     {
                         GameFiber.Yield(); // May need to remove this
-                        Game.LogTrivial("RecovFR: AutoBackup initiated");
+                        Game.LogTrivial("AutoBackup initiated");
                         Backup.DoBackup();
                         GameFiber.Sleep(time);
                     }
@@ -195,7 +195,7 @@ namespace RecovFR
                 {
                     ini.Write("RestoreOptions", "FreezeTime", "false");
                 }
-                Game.LogTrivial("RecovFR: Settings initialisation complete.");
+                Game.LogTrivial("Settings initialisation complete.");
             }
             catch (Exception e)
             {
@@ -214,8 +214,8 @@ namespace RecovFR
 
         public static void ErrorLogger(Exception Err, String ErrMod, String ErrDesc)
         {
-            Game.LogTrivial("RevovFR: --------------------------------------");
-            Game.LogTrivial("RecovFR: Error during " + ErrMod);
+            Game.LogTrivial("--------------------------------------");
+            Game.LogTrivial("Error during " + ErrMod);
             Game.LogTrivial("Decription: " + ErrDesc);
             Game.LogTrivial(Err.ToString());
             Game.DisplayNotification("~r~~h~RecovFR:~h~~s~ Error during " + ErrMod + ". Please send logs.");
