@@ -26,6 +26,7 @@ namespace RecovFR
         public static Vehicle GetVehicle { get; set; }
         public static Boolean InVehicle { get; set; }
         public static Vector3 MyLoc { get; set; }
+        public static Ped MyPed { get; set; }
 
         //Initialization of the plugin.
         public static void Main()
