@@ -213,11 +213,8 @@ namespace RecovFR
                         IEnumerable<XElement> MyWeaponComponents = xdocument.Descendants("MyWeaponComponents");
                         foreach (XElement GetElements in MyWeaponComponents.Elements())
                         {
-                            //Game.LocalPlayer.Character.Inventory.GiveNewWeapon(GetElements.Name.ToString(), short.Parse(GetElements.Value), false);
                             Game.LocalPlayer.Character.Inventory.AddComponentToWeapon(GetElements.Name.ToString(), GetElements.Value);
                         }
-                        // restore weapon in hand
-                        // Game.LocalPlayer.Character.Inventory.EquippedWeapon = 
                     }
                     catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring weapons or components"); }
 

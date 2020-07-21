@@ -13,8 +13,7 @@ namespace RecovFR
             EntryPoint.MyPed = Game.LocalPlayer.Character;
 
             Dictionary<string, string> XMLVehicle = new Dictionary<string, string>();
-            Dictionary<string, string> XMLPed = new Dictionary<string, string>();
-            // Dictionary<string, string> XMLProp = new Dictionary<string, string>();
+            Dictionary<string, string> XMLPed = new Dictionary<string, string>();           
             List<Tuple<int, int, int, int>> XMLPedComponents = new List<Tuple<int, int, int, int>>();
             List<Tuple<int, int, int, int>> XMLPedProps = new List<Tuple<int, int, int, int>>();
             Dictionary<string, string> XMLWeapon = new Dictionary<string, string>();
@@ -254,15 +253,10 @@ namespace RecovFR
                     }
                     xmlWriter.WriteEndElement();
 
-
-
                         // Weapon elements
                         xmlWriter.WriteStartElement("MyWeaponElements");
                     foreach (KeyValuePair<string, string> XMLValue in XMLWeapon)
                     {
-                        //     xmlWriter.WriteStartElement("WEAPON");
-                        //     xmlWriter.WriteAttributeString("NAME", XMLValue.Key);
-                        //     xmlWriter.WriteAttributeString("AMMO", XMLValue.Value);
                         xmlWriter.WriteStartElement(XMLValue.Key);
                         xmlWriter.WriteString(XMLValue.Value);
                         xmlWriter.WriteEndElement();

@@ -54,6 +54,7 @@
     <Compile Include="Lookups.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MemoryClasses.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restore.cs" />
   </ItemGroup>
