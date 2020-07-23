@@ -10,9 +10,12 @@ namespace RecovFR
     {
         public static void DoBackup()
         {
+            EntryPoint.MyPed = Game.LocalPlayer.Character;
+
             Dictionary<string, string> XMLVehicle = new Dictionary<string, string>();
-            Dictionary<string, string> XMLPed = new Dictionary<string, string>();
-            Dictionary<string, string> XMLProp = new Dictionary<string, string>();
+            Dictionary<string, string> XMLPed = new Dictionary<string, string>();           
+            List<Tuple<int, int, int, int>> XMLPedComponents = new List<Tuple<int, int, int, int>>();
+            List<Tuple<int, int, int, int>> XMLPedProps = new List<Tuple<int, int, int, int>>();
             Dictionary<string, string> XMLWeapon = new Dictionary<string, string>();
             List<KeyValuePair<string, string>> XMLWeaponComps = new List<KeyValuePair<string, string>>();
             Dictionary<string, string> XMLWorld = new Dictionary<string, string>();
@@ -128,6 +131,37 @@ namespace RecovFR
                 } catch (Exception e) { EntryPoint.ErrorLogger(e, "Backup", "Error collecting character elements"); }
 
                 try
+                {  // Get component Elements
+                    for (int i = 0; i <= 11; i++)
+                    {
+                        int GetComponentId = i;
+                        int GetDrawableId = NativeFunction.Natives.GET_PED_DRAWABLE_VARIATION<int>(EntryPoint.MyPed, i);
+                        int GetTextureId = NativeFunction.Natives.GET_PED_TEXTURE_VARIATION<int>(EntryPoint.MyPed, i);
+                        int GetPaleteId = NativeFunction.Natives.GET_PED_PALETTE_VARIATION<int>(EntryPoint.MyPed, i);
+
+                        XMLPedComponents.Add(new Tuple<int, int, int, int>(GetComponentId, GetDrawableId, GetTextureId, GetPaleteId));
+                    }
+
+                }
+                catch (Exception e) { EntryPoint.ErrorLogger(e, "Backup", "Error collecting character component elements"); }
+
+                try
+                {  // Get prop Elements
+                    for (int i = 0; i <= 3; i++)
+                    {
+                        int GetComponentId = i;
+                        int GetDrawableId = NativeFunction.Natives.GET_PED_PROP_INDEX<int>(EntryPoint.MyPed, i);
+                        int GetTextureId = NativeFunction.Natives.GET_PED_PROP_TEXTURE_INDEX<int>(EntryPoint.MyPed, i);
+                        int GetPaleteId = NativeFunction.Natives.GET_PED_PALETTE_VARIATION<int>(EntryPoint.MyPed, i);
+
+                        XMLPedProps.Add(new Tuple<int, int, int, int>(GetComponentId, GetDrawableId, GetTextureId, GetPaleteId));
+                    }
+                }
+                catch (Exception e) { EntryPoint.ErrorLogger(e, "Backup", "Error collecting character prop elements"); }
+
+
+
+                try
                 { // Get Weapon Elements
                     foreach (KeyValuePair<long, string> weapon in Lookups.LookupWeapons)
                     {
@@ -193,23 +227,36 @@ namespace RecovFR
                     }
                     xmlWriter.WriteEndElement();
 
-                    // Prop elements
-                    xmlWriter.WriteStartElement("MyPropElements");
-                    foreach (KeyValuePair<string, string> XMLValue in XMLProp)
+                    // Ped component elements
+                    xmlWriter.WriteStartElement("MyComponentElements");
+                    foreach (Tuple<int, int, int, int> XMLValue in XMLPedComponents)
                     {
-                        xmlWriter.WriteStartElement(XMLValue.Key);
-                        xmlWriter.WriteString(XMLValue.Value);
+                        xmlWriter.WriteStartElement("Component");
+                        xmlWriter.WriteAttributeString("ComponentId", XMLValue.Item1.ToString());
+                        xmlWriter.WriteAttributeString("DrawableId", XMLValue.Item2.ToString());
+                        xmlWriter.WriteAttributeString("TextureId", XMLValue.Item3.ToString());
+                        xmlWriter.WriteAttributeString("PaleteId", XMLValue.Item4.ToString());
                         xmlWriter.WriteEndElement();
                     }
                     xmlWriter.WriteEndElement();
 
-                    // Weapon elements
-                    xmlWriter.WriteStartElement("MyWeaponElements");
+                    // Ped prop elements
+                    xmlWriter.WriteStartElement("MyPropElements");
+                    foreach (Tuple<int, int, int, int> XMLValue in XMLPedProps)
+                    {
+                        xmlWriter.WriteStartElement("Prop");
+                        xmlWriter.WriteAttributeString("ComponentId", XMLValue.Item1.ToString());
+                        xmlWriter.WriteAttributeString("DrawableId", XMLValue.Item2.ToString());
+                        xmlWriter.WriteAttributeString("TextureId", XMLValue.Item3.ToString());
+                        xmlWriter.WriteAttributeString("PaleteId", XMLValue.Item4.ToString());
+                        xmlWriter.WriteEndElement();
+                    }
+                    xmlWriter.WriteEndElement();
+
+                        // Weapon elements
+                        xmlWriter.WriteStartElement("MyWeaponElements");
                     foreach (KeyValuePair<string, string> XMLValue in XMLWeapon)
                     {
-                        //     xmlWriter.WriteStartElement("WEAPON");
-                        //     xmlWriter.WriteAttributeString("NAME", XMLValue.Key);
-                        //     xmlWriter.WriteAttributeString("AMMO", XMLValue.Value);
                         xmlWriter.WriteStartElement(XMLValue.Key);
                         xmlWriter.WriteString(XMLValue.Value);
                         xmlWriter.WriteEndElement();

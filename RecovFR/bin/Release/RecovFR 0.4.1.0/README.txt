@@ -10,6 +10,7 @@ Current features:
 - Backup stored in xml file, so even after full game crash or exit, backup can be restored
 - Backup the following states at the press of a button or automatically (if enabled): 
   - Current character location
+  - Current clothing and accessories
   - Current weapons, components and ammo
   - Wanted level
   - Health and armor
@@ -25,19 +26,21 @@ Current features:
   - Freeze time and weather on restore*
   - Set snow on terrain on restore*
 - Restore last backup at press of button
+- Ability to turn on/off features in .ini file or via in game menu
 
 *Restore options set in game
 
 Planned features (If I am clever enough to work it out): 
 - Backup / restore the following information: 
-  - Current character model (removed previous attempt due to bug)
-  - If character is wet or dry
-  - Current uniform and accessories
-  - Vehicle neon light configurations
-  - Ability to turn on/off features in .ini file
-  - Simple Menu to control options in game
+  - Current character model
 
 Version history: 
+0.4.1.0 Pre-Release (The All Dressed-Up-Date)
+- Added character cloting and accessories
+- Added simple in-game menu
+- Code tidy 
+(Thank you opus49 for helping with my code and sanity)
+
 0.3.1.1 Pre-Release (The I Messed-Up-Date)
 - Removed character model from restore (critical bug)
 - Fixed flashlight missing from restore

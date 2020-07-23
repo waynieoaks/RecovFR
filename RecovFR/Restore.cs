@@ -11,9 +11,11 @@ namespace RecovFR
     class Restore
     {
         static String MyVehRadio = "";
-
+        
         public static void DoRestore()
         {
+            EntryPoint.MyPed = Game.LocalPlayer.Character;
+
             try
             { // Catch all
                 // Check if there is an xml file
@@ -21,6 +23,9 @@ namespace RecovFR
                 {
                     try
                     { // Do a bit of housework
+
+                        NativeFunction.Natives.CLEAR_ALL_PED_PROPS(EntryPoint.MyPed);
+
                         if (Game.LocalPlayer.Character.IsInAnyVehicle(true))
                         {
                             //Delete vehicle to pevent taking it with us
@@ -165,12 +170,34 @@ namespace RecovFR
                     catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring character"); }
 
                     try
+                    { ////// RESTORE COMPONENTS ////////////////////////////////////////////////////////////
+                        IEnumerable<XElement> MyComponentElements = xdocument.Descendants("MyComponentElements");
+                        foreach (XElement GetElements in MyComponentElements.Elements())
+                        {
+                            int GetComponentId = Int16.Parse(GetElements.Attribute("ComponentId").Value);
+
+                            NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(EntryPoint.MyPed,
+                                Int16.Parse(GetElements.Attribute("ComponentId").Value),
+                                Int16.Parse(GetElements.Attribute("DrawableId").Value),
+                                Int16.Parse(GetElements.Attribute("TextureId").Value),
+                                Int16.Parse(GetElements.Attribute("PaleteId").Value));
+                        }
+                    }
+                    catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring character components"); }
+
+                    try
                     { ////// RESTORE PROPS ////////////////////////////////////////////////////////////
-                        //IEnumerable<XElement> MyPropElements = xdocument.Descendants("MyPropElements");
-                        //foreach (XElement GetElements in MyPropElements)
-                        //{
-                        //    // MyArmor = (Int16)GetElements.Element("MyArmor");
-                        //}
+                        IEnumerable<XElement> MyPropElements = xdocument.Descendants("MyPropElements");
+                        foreach (XElement GetElements in MyPropElements.Elements())
+                        {
+                            int GetComponentId = Int16.Parse(GetElements.Attribute("ComponentId").Value);
+
+                            NativeFunction.Natives.SET_PED_PROP_INDEX(EntryPoint.MyPed,
+                                Int16.Parse(GetElements.Attribute("ComponentId").Value),
+                                Int16.Parse(GetElements.Attribute("DrawableId").Value),
+                                Int16.Parse(GetElements.Attribute("TextureId").Value),
+                                Int16.Parse(GetElements.Attribute("PaleteId").Value));
+                        }
                     }
                     catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring character props"); }
 
@@ -186,11 +213,8 @@ namespace RecovFR
                         IEnumerable<XElement> MyWeaponComponents = xdocument.Descendants("MyWeaponComponents");
                         foreach (XElement GetElements in MyWeaponComponents.Elements())
                         {
-                            //Game.LocalPlayer.Character.Inventory.GiveNewWeapon(GetElements.Name.ToString(), short.Parse(GetElements.Value), false);
                             Game.LocalPlayer.Character.Inventory.AddComponentToWeapon(GetElements.Name.ToString(), GetElements.Value);
                         }
-                        // restore weapon in hand
-                        // Game.LocalPlayer.Character.Inventory.EquippedWeapon = 
                     }
                     catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring weapons or components"); }
 
