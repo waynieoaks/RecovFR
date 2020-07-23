@@ -11,7 +11,6 @@ namespace RecovFR
         public static string XMLpath = "Plugins\\RecovFR.xml";
         public static string INIpath = "Plugins\\RecovFR.ini";
 
-        //    public static Boolean IsLoaded = false;
         public static Keys BackupKey { get; set; }
         public static Keys BackupModifierKey { get; set; }
         public static Keys RestoreKey { get; set; }
@@ -47,7 +46,6 @@ namespace RecovFR
                 while (true)
                 {
                     GameFiber.Yield();
-                  //  Menu.menuPool.ProcessMenus();
 
                     if (Game.IsKeyDown(BackupKey) &&
                         (Game.IsKeyDownRightNow(BackupModifierKey) ||
@@ -66,7 +64,6 @@ namespace RecovFR
                     if (Game.IsKeyDown(MenuKey) &&
                         (Game.IsKeyDownRightNow(MenuModifierKey) ||
                             MenuModifierKey == Keys.None)
-                            // && !UIMenu.IsAnyMenuVisible // Requires RageNativeUI 1.7 or above
                             )
                     {
                         Menu.mainMenu.Visible = !Menu.mainMenu.Visible;

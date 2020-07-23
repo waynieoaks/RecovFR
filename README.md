@@ -33,8 +33,6 @@ Current features:
 Planned features (If I am clever enough to work it out): 
 - Backup / restore the following information: 
   - Current character model
-  - If character is wet or dry
-  - Vehicle neon light configurations
 
 Version history: 
 0.4.1.0 Pre-Release (The All Dressed-Up-Date)
