@@ -36,7 +36,7 @@ Planned features (If I am clever enough to work it out):
 
 Version history: 
 0.4.1.0 Pre-Release (The All Dressed-Up-Date)
-- Added character cloting and accessories
+- Added character clothing and accessories
 - Added simple in-game menu
 - Code tidy 
 (Thank you opus49 for helping with my code and sanity)
