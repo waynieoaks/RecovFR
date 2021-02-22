@@ -133,7 +133,7 @@ namespace RecovFR
                         IEnumerable<XElement> MyPedElements = xdocument.Descendants("MyPedElements");
                         foreach (XElement GetElements in MyPedElements)
                         {
-                         //   Game.LocalPlayer.Model = (string)GetElements.Element("MyModel");
+                         //   Game.LocalPlayer.Model = (string)GetElements.Element("MyModel"); // Do not restore as sometimes invisible (MP_M or MP_F)
                             EntryPoint.MyLoc = new Vector3((float)GetElements.Element("MyLocX"),
                                                         (float)GetElements.Element("MyLocY"),
                                                         (float)GetElements.Element("MyLocZ"));

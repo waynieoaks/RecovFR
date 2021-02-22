@@ -77,7 +77,7 @@ namespace RecovFR
 
                 for (; address < end; address++)
                 {
-                    if (bCompare((byte*)(address), bytes.ToCharArray(), mask.ToCharArray()))
+                    if (BCompare((byte*)(address), bytes.ToCharArray(), mask.ToCharArray()))
                     {
                         return new IntPtr(address + offset);
                     }
@@ -91,7 +91,7 @@ namespace RecovFR
                 return Get(null, offset);
             }
 
-            private unsafe bool bCompare(byte* pData, char[] bMask, char[] szMask)
+            private unsafe bool BCompare(byte* pData, char[] bMask, char[] szMask)
             {
                 int i = 0;
 
