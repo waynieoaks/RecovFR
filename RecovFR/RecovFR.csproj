@@ -35,11 +35,11 @@
   <ItemGroup>
     <Reference Include="RAGENativeUI, Version=1.6.3.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SteamStuff\Mod development\_External references\RAGENativeUI.dll</HintPath>
+      <HintPath>..\..\_Resources\RAGENativeUI.dll</HintPath>
     </Reference>
     <Reference Include="RagePluginHookSDK, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SteamStuff\Mod development\_External references\RagePluginHookSDK.dll</HintPath>
+      <HintPath>..\..\_Resources\RagePluginHookSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
