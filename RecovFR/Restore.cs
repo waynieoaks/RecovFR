@@ -76,7 +76,7 @@ namespace RecovFR
                                     catch (Exception e)
                                     {
                                         EntryPoint.InVehicle = false;  // Vehicle not restored, so forget warp to vehicle
-                                        EntryPoint.ErrorLogger(e, "Restore", "Error restoring vehicle");
+                                        EntryPoint.ErrorLogger(e, "Restore", "Error restoring vehicle from lookup");
                                     }
                                 }
 

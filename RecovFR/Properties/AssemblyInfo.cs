@@ -8,7 +8,7 @@ using Rage.Attributes;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("RecovFR")]
-[assembly: AssemblyCopyright("Copyright ©  2020 - Waynieoaks")]
+[assembly: AssemblyCopyright("Copyright ©  2020-2022 - Waynieoaks")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -16,5 +16,5 @@ using Rage.Attributes;
 
 [assembly: Guid("08c55d48-5132-406c-ae77-bfdb3b7c8422")]
 
-[assembly: AssemblyVersion("0.4.1.0")]
-[assembly: AssemblyFileVersion("0.4.1.0")]
+[assembly: AssemblyVersion("1.0.5.0")]
+[assembly: AssemblyFileVersion("1.0.5.0")]

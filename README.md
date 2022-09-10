@@ -35,6 +35,10 @@ Planned features (If I am clever enough to work it out):
   - Current character model
 
 Version history: 
+1.0.5.0 (The Finally A Version One-Up-Date)
+- Updated Weapon lookup dictionaries up to Summer 2022 DLC
+- Updated Vehicle lookup dictionaries up to Summer 2022 DLC
+
 0.4.1.0 Pre-Release (The All Dressed-Up-Date)
 - Added character clothing and accessories
 - Added simple in-game menu

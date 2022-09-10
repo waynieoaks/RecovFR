@@ -51,3 +51,14 @@ D:\repositories\RecovFR\RecovFR\bin\Debug\RAGENativeUI.pdb
 D:\repositories\RecovFR\RecovFR\bin\Debug\RAGENativeUI.xml
 D:\repositories\RecovFR\RecovFR\bin\Debug\RagePluginHookSDK.xml
 D:\repositories\RecovFR\RecovFR\obj\Debug\RecovFR.csproj.CopyComplete
+D:\GitHubRepos\RecovFR\RecovFR\bin\Debug\RecovFR.dll
+D:\GitHubRepos\RecovFR\RecovFR\bin\Debug\RecovFR.pdb
+D:\GitHubRepos\RecovFR\RecovFR\bin\Debug\RAGENativeUI.dll
+D:\GitHubRepos\RecovFR\RecovFR\bin\Debug\RagePluginHookSDK.dll
+D:\GitHubRepos\RecovFR\RecovFR\bin\Debug\RAGENativeUI.xml
+D:\GitHubRepos\RecovFR\RecovFR\bin\Debug\RagePluginHookSDK.xml
+D:\GitHubRepos\RecovFR\RecovFR\obj\Debug\RecovFR.csproj.AssemblyReference.cache
+D:\GitHubRepos\RecovFR\RecovFR\obj\Debug\RecovFR.csproj.CoreCompileInputs.cache
+D:\GitHubRepos\RecovFR\RecovFR\obj\Debug\RecovFR.csproj.CopyComplete
+D:\GitHubRepos\RecovFR\RecovFR\obj\Debug\RecovFR.dll
+D:\GitHubRepos\RecovFR\RecovFR\obj\Debug\RecovFR.pdb
