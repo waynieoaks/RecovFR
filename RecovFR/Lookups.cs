@@ -27,6 +27,7 @@ namespace RecovFR
 
         public static Dictionary<long, string> LookupPed = new Dictionary<long, string>()
         {
+            // https://gist.github.com/root-cause //
             { 0xCE5FF074, "a_c_boar" },
             { 0x573201B8, "a_c_cat_01" },
             { 0xAAB71F62, "a_c_chickenhawk" },
@@ -875,12 +876,98 @@ namespace RecovFR
             { 0x52060D92, "S_M_M_Bouncer_02" },
             { 0x5C366C83, "S_M_M_DrugProcess_01" },
             { 0x9074CA50, "S_M_M_FieldWorker_01" },
-            { 0x55FE9B46, "S_M_M_HighSec_04" }
+            { 0x55FE9B46, "S_M_M_HighSec_04" },
+            // LS Tuners //
+            { 0xFD08C54B, "A_F_Y_CarClub_01" },
+            { 0x685FF8D4, "A_M_Y_CarClub_01" },
+            { 0x9C1F1A19, "A_M_Y_TattooCust_01" },
+            { 0x89FEFCE0, "CSB_AviSchwartzman_02" },
+            { 0x389258FE, "CSB_DrugDealer" },
+            { 0xBF71EF93, "CSB_Hao_02" },
+            { 0x86C1FFE8, "CSB_Mimi" },
+            { 0x8D7EE5A4, "CSB_Moodyman_02" },
+            { 0xD3BAC7E0, "CSB_Sessanta " },
+            { 0x21B4080F, "G_M_M_Prisoners_01" },
+            { 0x277E179C, "G_M_M_Slasher_01" },
+            { 0xDEA6E105, "IG_AviSchwartzman_02"  },
+            { 0x73D1907B, "IG_Benny_02" },
+            { 0x1F0CA79D, "IG_DrugDealer" },
+            { 0xF0837160, "IG_Hao_02" },
+            { 0xC80DF962, "IG_LilDee" },
+            { 0x784F9C95, "IG_Mimi" },
+            { 0x97D144B3, "IG_Moodyman_02" },
+            { 0x371B9DA9, "IG_Sessanta" },
+            { 0x00BD1F24, "S_F_M_Autoshop_01" },
+            { 0xC19C2462, "S_F_M_RetailStaff_01" },
+            { 0x068C3112, "S_M_M_Autoshop_03" },
+            { 0x9AD98D99, "S_M_M_RaceOrg_01" },
+            { 0xC41743EB, "S_M_M_Tattoo_01" },
+            // The Contract //
+            { 0x3DF40FC1, "A_C_Chop_02" },
+            { 0x44B4D748, "A_F_Y_StudioParty_01" },
+            { 0x76463A5E, "A_F_Y_StudioParty_02" },
+            { 0x8B996025, "A_M_M_StudioParty_01" },
+            { 0xB231229D, "A_M_Y_StudioParty_01" },
+            { 0x01562E05, "CS_LamarDavis_02" },
+            { 0xEA177CDD, "CSB_ARY_02" },
+            { 0xB8A90E13, "CSB_Ballas_Leader" },
+            { 0xCA846157, "CSB_Billionaire" },
+            { 0x7E5F1188, "CSB_Golfer_A" },
+            { 0xDCEDCEA4, "CSB_Golfer_B" },
+            { 0x7671A8F6, "CSB_Imani" },
+            { 0xDCB110B0, "CSB_JIO_02" },
+            { 0x7DA9C6A1, "CSB_Johnny_Guns" },
+            { 0x98F3FA18, "CSB_MJO_02" },
+            { 0xC7BC9E2C, "CSB_Musician_00" },
+            { 0x98D8449F, "CSB_Party_Promo" },
+            { 0x88F76B3A, "CSB_Req_Officer" },
+            { 0x2BC9001C, "CSB_Security_A" },
+            { 0x20606D6C, "CSB_SoundEng_00" },
+            { 0x8332EBE5, "CSB_Vagos_Leader" },
+            { 0xBD7713C6, "CSB_Vernon" },
+            { 0x61ECD362, "G_M_M_Goons_01" },
+            { 0x879F366F, "IG_ARY_02" },
+            { 0xDB41B4EF, "IG_Ballas_Leader" },
+            { 0x01AD5181, "IG_Billionaire" },
+            { 0x19F5CED2, "IG_Entourage_A" },
+            { 0xC866ABB5, "IG_Entourage_B" },
+            { 0x3F9B1A4D, "IG_Golfer_A" },
+            { 0x6ECC78AF, "IG_Golfer_B" },
+            { 0x2E0A4F4A, "IG_Imani" },
+            { 0xD047EE3E, "IG_JIO_02" },
+            { 0x27474FFA, "IG_Johnny_Guns" },
+            { 0x1924A05E, "IG_LamarDavis_02" },
+            { 0x38C749C4, "IG_MJO_02" },
+            { 0x23791ABF, "IG_Musician_00" },
+            { 0x85B8A435, "IG_Party_Promo" },
+            { 0xEB176014, "IG_Req_Officer" },
+            { 0x2F4E5C7B, "IG_Security_A" },
+            { 0xDA3BDDE8, "IG_SoundEng_00" },
+            { 0x837B64DE, "IG_Vagos_Leader" },
+            { 0xCDB291A2, "IG_Vernon" },
+            { 0x15ADD1A5, "IG_Vincent_3"  },
+            { 0xAF10BD56, "P_Franklin_02" },
+            { 0xC155ACC0, "S_F_M_StudioAssist_01" },
+            { 0x3ABB64C0, "S_M_M_HighSec_05" },
+            { 0x9FB16928, "S_M_M_StudioAssist_02" },
+            { 0xE3A30BBF, "S_M_M_StudioProd_01" },
+            { 0xDE08C410, "S_M_M_StudioSouEng_02" },
+            // Criminal Enterprises // 
+            { 0x749B5065, "A_F_M_GenBiker_01" },
+            { 0xDEE17D7E, "A_M_M_GenBiker_01" },
+            { 0xD303008B,  "G_M_M_GenThug_01"},
+            { 0x46850B27, "IG_Agent_02 "},
+            { 0x49004F25, "IG_Mason_Duggan" },
+            { 0x42107CA3, "IG_WarehouseBoss" },
+            { 0xE5371B92, "S_F_M_Warehouse_01" },
+            { 0x27589791, "S_M_M_Warehouse_01" },
+            { 0xA340F5D7, "U_M_Y_Juggernaut_02" },
         };
 
         public static Dictionary<long, string> LookupWeapons = new Dictionary<long, string>()
         {
             // https://www.se7ensins.com/forums/threads/weapon-and-explosion-hashes-list.1045035/ //
+            // https://gist.github.com/root-cause //
             // Use OpenIV to generate hash in decimal // 
             {2578778090,  "WEAPON_KNIFE"},
             {1737195953,  "WEAPON_NIGHTSTICK"},
@@ -974,7 +1061,16 @@ namespace RecovFR
             // Cayo Perico Heist // 
             {94989220, "WEAPON_COMBATSHOTGUN" },
             {1470379660, "WEAPON_GADGETPISTOL" },
-            {2636060646, "WEAPON_MILITARYRIFLE" }
+            {2636060646, "WEAPON_MILITARYRIFLE" },
+            // The Contract //
+            {3676729658, "WEAPON_EMPLAUNCHER" },
+            {3347935668, "WEAPON_HEAVYRIFLE" },
+            {406929569, "WEAPON_FERTILIZERCAN" },
+            {1171102963, "WEAPON_STUNGUN_MP" },
+            // Criminal Enterprises //
+            {3520460075, "WEAPON_TACTICALRIFLE" },
+            {1853742572, "WEAPON_PRECISIONRIFLE" },
+            {3684886537, "WEAPON_METALDETECTOR" },
         };
 
         // Weapons - Not used //
@@ -1100,6 +1196,7 @@ namespace RecovFR
 
         public static Dictionary<string, string> LookupWeaponComponents = new Dictionary<string, string>()
         { 
+            // https://gist.github.com/root-cause //
             {"SWAP_DEFAULT", "SWAP_DEFAULT"},
             {"SWAP_MELEE_2H", "SWAP_MELEE_2H"},
             {"RELOAD_DEFAULT", "RELOAD_DEFAULT"},
@@ -1155,7 +1252,7 @@ namespace RecovFR
             {"COMPONENT_HEAVYPISTOL_CLIP_01", "Normal Clip-Size"},
             {"COMPONENT_HEAVYPISTOL_CLIP_02", "Extended Clip-Size"},
             {"COMPONENT_SPECIALCARBINE_CLIP_01", "Normal Clip-Size"},
-            {"COMPONENT_SPECIALCARBINE_CLIP_02", "Extended Clip-Siz"},
+            {"COMPONENT_SPECIALCARBINE_CLIP_02", "Extended Clip-Size"},
             {"COMPONENT_AT_SCOPE_LARGE_FIXED_ZOOM", "Scope"},
             {"COMPONENT_MARKSMANRIFLE_CLIP_01", "Normal Clip-Size"},
             {"COMPONENT_MARKSMANRIFLE_CLIP_02", "Extended Clip-Size"},
@@ -1178,13 +1275,25 @@ namespace RecovFR
             // Cayo Perico Heist // 
             {"COMPONENT_MILITARYRIFLE_CLIP_01", "Normal Clip-Size" },
             {"COMPONENT_MILITARYRIFLE_CLIP_02", "Extended Clip-Size" },
-            {"COMPONENT_MILITARYRIFLE_SIGHT_01", "Scope" }
+            {"COMPONENT_MILITARYRIFLE_SIGHT_01", "Scope" },
+            // The Contract // 
+            {"COMPONENT_HEAVYRIFLE_CLIP_01", "Normal Clip-Size" },
+            {"COMPONENT_HEAVYRIFLE_CLIP_02", "Extended Clip-Size" },
+            {"COMPONENT_HEAVYRIFLE_SIGHT_01", "Iron Sights" },
+            {"COMPONENT_HEAVYRIFLE_CAMO1", "Families Finish" },
+            {"COMPONENT_APPISTOL_VARMOD_SECURITY", "Record A Finish" },
+            {"COMPONENT_MICROSMG_VARMOD_SECURITY", "Organics Finish" },
+            {"COMPONENT_PUMPSHOTGUN_VARMOD_SECURITY", "Bone Finish" },
+            // Criminal Enterprises // 
+            {"COMPONENT_AT_AR_FLSH_REH", "Flashlight" },
+            {"COMPONENT_TACTICALRIFLE_CLIP_02", "Extended Clip" },
         };
 
         public static Dictionary<string, string> LookupVehicles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             // https://www.se7ensins.com/forums/threads/ref-gta-v-vehicle-hashes-list-2.1615439 //
             // https://www.se7ensins.com/forums/threads/gta-v-vehicle-hashes-list.988584 //
+            // https://gist.github.com/root-cause //
             {"0xB779A091","ADDER"},
             {"0x4C80EB0E","AIRBUS"},
             {"0x5D0AAC8F","AIRTUG"},
@@ -2040,8 +2149,37 @@ namespace RecovFR
             { "0x7D008AAE", "Saspyoutil" },
             { "0x9D84858F", "Saspskutil" },
             // Jacobmaate SAHP Pack // 
-
+            { "0xC12AFFD2", "SAHP" },
+            { "0xADF5D491", "SAHP1A" },
+            { "0x493B0B1D", "SAHP1B" },
+            { "0x59DCAC60", "SAHP1C" },
+            { "0x51551B4D", "SAHP1D" },
+            { "0xE27D9118", "SAHP2" },
+            { "0x2821D9DB", "SAHP2A" },
+            { "0xB39170AC", "SAHP22" },
+            { "0xA2E8D81D", "SAHP22A" },
+            { "0xD0CC6DBE", "SAHP3" },
+            { "0x49F078FF", "SAHP3A" },
+            { "0x03AB6C76", "SAHP3B" },
+            { "0xC0F7CE15", "SAHP4" },
+            { "0xC272EB52", "SAHP4A" },
+            { "0xEC162451", "SAHP5" },
+            { "0x3109C972", "SAHP5A" },
+            { "0xDA8C813E", "SAHP6" },
+            { "0x62A52DF8", "SAHP6A" },
+            { "0x6332126F", "SAHPB" },
+            { "0x4CE2D6B4", "SAHPB2" },
+            { "0xA563A40F", "SAHPAIR" },
             //Waynes Addon Pack //
+            { "0x926DB467", "ambasu" },
+            { "0xEF05C8B7", "coastasu" },
+            { "0xE9921C62", "corboxville" },
+            { "0xDA42C61A", "corspeedo" },
+            { "0x8FC50F21", "flatbed2" },
+            { "0x2D1D28D5", "lguardasu" },
+            { "0xCC448495", "pizzab" },
+            { "0xD7F8BB72", "towtruck3" },
+            { "0xCA3C1FF9", "towtruck4" },
         };
     }
 }

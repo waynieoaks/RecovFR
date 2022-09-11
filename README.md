@@ -36,8 +36,12 @@ Planned features (If I am clever enough to work it out):
 
 Version history: 
 1.0.5.0 (The Finally A Version One-Up-Date)
-- Updated Weapon lookup dictionaries up to Summer 2022 DLC
-- Updated Vehicle lookup dictionaries up to Summer 2022 DLC
+- Updated hash lookup tables to Summer 2022 (Criminal Enterprises) DLC
+- Added vehicle lookup tables for the following DLC packs: 
+  - 11John11 LSPD Addon Pack
+  - 11John11 LSSD 2.0 Addon Pack
+  - Baravo-Charlie-One SASP Ranger Addon Pack
+  - Jacobmaate SAHP Addon Pack
 
 0.4.1.0 Pre-Release (The All Dressed-Up-Date)
 - Added character clothing and accessories
