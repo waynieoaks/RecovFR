@@ -133,7 +133,47 @@ namespace RecovFR
                         IEnumerable<XElement> MyPedElements = xdocument.Descendants("MyPedElements");
                         foreach (XElement GetElements in MyPedElements)
                         {
-                         //   Game.LocalPlayer.Model = (string)GetElements.Element("MyModel"); // Do not restore as sometimes invisible (MP_M or MP_F)
+                            if ( 
+                                    ((string)GetElements.Element("MyModel") == "MP_M_FREEMODE_01") 
+                                 || ((string)GetElements.Element("MyModel") == "MP_F_FREEMODE_01") 
+                               )
+                            {
+                                // Cannot restore Multiplayer Freemode Models as sometimes invisible
+                                EntryPoint.Command_Notification("RecovFR: Sorry, Cannot restore freemode multiplayer peds");
+                            }
+                            else
+                            {
+                                Lookups.LookupPed.TryGetValue((string)GetElements.Element("MyModel"), out String Pedresult);
+
+                                if (Pedresult == null) // If ped not found in dictionary //
+                                {
+                                    try
+                                    {
+
+EntryPoint.Command_Notification("Debug: Attemting restore from XML value");
+                                        Game.LocalPlayer.Model = (string)GetElements.Element("MyModel"); // Restore from value
+                                    //    NativeFunction.Natives.SetPlayerModel(Game.LocalPlayer, (string)GetElements.Element("MyModel"));
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        EntryPoint.ErrorLogger(e, "Restore", "Error restoring ped");
+                                    }
+                                }
+                                else // Ped was found in dictionary //
+                                {
+                                    try
+                                    {
+EntryPoint.Command_Notification("Debug: Attemting restore from XML value");
+                                         Game.LocalPlayer.Model = Pedresult; // Restore from lookup table
+                                     //   NativeFunction.Natives.SetPlayerModel(Game.LocalPlayer, (string)GetElements.Element("MyModel"));
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        EntryPoint.ErrorLogger(e, "Restore", "Error restoring ped from lookup");
+                                    }
+                                }
+                            }
+
                             EntryPoint.MyLoc = new Vector3((float)GetElements.Element("MyLocX"),
                                                         (float)GetElements.Element("MyLocY"),
                                                         (float)GetElements.Element("MyLocZ"));
