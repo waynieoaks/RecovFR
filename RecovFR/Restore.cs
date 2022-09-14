@@ -150,9 +150,8 @@ namespace RecovFR
                                     try
                                     {
 
-EntryPoint.Command_Notification("Debug: Attemting restore from XML value");
-                                        Game.LocalPlayer.Model = (string)GetElements.Element("MyModel"); // Restore from value
-                                    //    NativeFunction.Natives.SetPlayerModel(Game.LocalPlayer, (string)GetElements.Element("MyModel"));
+                                          Game.LocalPlayer.Model = (string)GetElements.Element("MyModel"); // Restore from value
+                                          Game.LocalPlayer.Character.ResetVariation(); 
                                     }
                                     catch (Exception e)
                                     {
@@ -163,9 +162,8 @@ EntryPoint.Command_Notification("Debug: Attemting restore from XML value");
                                 {
                                     try
                                     {
-EntryPoint.Command_Notification("Debug: Attemting restore from XML value");
                                          Game.LocalPlayer.Model = Pedresult; // Restore from lookup table
-                                     //   NativeFunction.Natives.SetPlayerModel(Game.LocalPlayer, (string)GetElements.Element("MyModel"));
+                                         Game.LocalPlayer.Character.ResetVariation();
                                     }
                                     catch (Exception e)
                                     {
@@ -211,16 +209,24 @@ EntryPoint.Command_Notification("Debug: Attemting restore from XML value");
 
                     try
                     { ////// RESTORE COMPONENTS ////////////////////////////////////////////////////////////
+
                         IEnumerable<XElement> MyComponentElements = xdocument.Descendants("MyComponentElements");
                         foreach (XElement GetElements in MyComponentElements.Elements())
                         {
                             int GetComponentId = Int16.Parse(GetElements.Attribute("ComponentId").Value);
 
+                            //Game.LocalPlayer.Character.SetVariation(
+                            //    Int32.Parse(GetElements.Attribute("ComponentId").Value),
+                            //    Int32.Parse(GetElements.Attribute("DrawableId").Value),
+                            //    Int32.Parse(GetElements.Attribute("TextureId").Value)
+                            //    );
+
                             NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(EntryPoint.MyPed,
                                 Int16.Parse(GetElements.Attribute("ComponentId").Value),
                                 Int16.Parse(GetElements.Attribute("DrawableId").Value),
                                 Int16.Parse(GetElements.Attribute("TextureId").Value),
-                                Int16.Parse(GetElements.Attribute("PaleteId").Value));
+                                Int16.Parse(GetElements.Attribute("PaleteId").Value)
+                                );
                         }
                     }
                     catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring character components"); }
@@ -230,13 +236,13 @@ EntryPoint.Command_Notification("Debug: Attemting restore from XML value");
                         IEnumerable<XElement> MyPropElements = xdocument.Descendants("MyPropElements");
                         foreach (XElement GetElements in MyPropElements.Elements())
                         {
-                            int GetComponentId = Int16.Parse(GetElements.Attribute("ComponentId").Value);
+                            int GetComponentId = Int32.Parse(GetElements.Attribute("ComponentId").Value);
 
                             NativeFunction.Natives.SET_PED_PROP_INDEX(EntryPoint.MyPed,
-                                Int16.Parse(GetElements.Attribute("ComponentId").Value),
-                                Int16.Parse(GetElements.Attribute("DrawableId").Value),
-                                Int16.Parse(GetElements.Attribute("TextureId").Value),
-                                Int16.Parse(GetElements.Attribute("PaleteId").Value));
+                                Int32.Parse(GetElements.Attribute("ComponentId").Value),
+                                Int32.Parse(GetElements.Attribute("DrawableId").Value),
+                                Int32.Parse(GetElements.Attribute("TextureId").Value),
+                                Int32.Parse(GetElements.Attribute("PaleteId").Value));
                         }
                     }
                     catch (Exception e) { EntryPoint.ErrorLogger(e, "Restore", "Error restoring character props"); }
