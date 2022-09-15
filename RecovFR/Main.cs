@@ -30,6 +30,22 @@ namespace RecovFR
         public static Vector3 MyLoc { get; set; }
         public static Ped MyPed { get; set; }
 
+        public struct HeadBlendData
+        {
+            public int ShapeFirst;
+            public int ShapeSecond;
+            public int ShapeThird;
+
+            public int SkinFirst;
+            public int SkinSecond;
+            public int SkinThird;
+
+            public float ShapeMix;
+            public float SkinMix;
+            public float ThirdMix;
+        }
+        public static HeadBlendData MyPedHeadBlendData { get; set; }
+
         //Initialization of the plugin.
         public static void Main()
         {

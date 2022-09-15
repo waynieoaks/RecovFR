@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Policy;
 using System.Xml;
 using Rage;
 using Rage.Native;
+using static RecovFR.EntryPoint;
 
 namespace RecovFR
 {
@@ -120,6 +123,19 @@ namespace RecovFR
                 try
                 {  // Get character Elements
                     XMLPed.Add("MyModel", Game.LocalPlayer.Character.Model.Name);
+
+                    if (Game.LocalPlayer.Character.Model.Name == "MP_F_FREEMODE_01")
+                    {
+                        // Lets get the blend data
+
+                        HeadBlendData headData;
+                      //  GET_PED_HEAD_BLEND_DATA(PLAYER_PED_ID(), &headData);
+
+                        NativeFunction.Natives.GetPedHeadBlendData(EntryPoint.MyPed, &headData); // This will not work
+
+
+                    }
+
                     XMLPed.Add("MyLocX", Game.LocalPlayer.Character.Position.X.ToString());
                     XMLPed.Add("MyLocY", Game.LocalPlayer.Character.Position.Y.ToString());
                     XMLPed.Add("MyLocZ", Game.LocalPlayer.Character.Position.Z.ToString());
